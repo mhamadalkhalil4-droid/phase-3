@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Autora — Phase 3 (all screens)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Phase 3 — design tokens aligned with Phase 1 */
+    :root {
+      --midnight-plum: #120C24;
+      --ultraviolet: #7A5CFF;
+      --luminous-orchid: #B36CFF;
+      --solar-coral: #FF6B68;
+      --warm-sand: #F6EFE8;
+      --mist-lavender: #EAE5F4;
+      --graphite-plum: #4E465E;
+      --white: #ffffff;
+      --rgb-midnight-plum: 18, 12, 36;
+      --rgb-ultraviolet: 122, 92, 255;
+      --rgb-white: 255, 255, 255;
+      --near-black: #1A1A2E;
+      --input-border: color-mix(in srgb, var(--mist-lavender) 78%, var(--graphite-plum) 22%);
+      --shadow-card: rgba(0, 0, 0, 0.06);
+      --sidebar-width: 248px;
+      --topbar-height: 56px;
+      --min-page-width: 1280px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-width: var(--min-page-width);
+      font-family: "Inter", system-ui, sans-serif;
+      background: #F6EFE8;
+      color: var(--near-black);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; }
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
+    /* Prototype nav — Phase 3 naming */
+    .prototype-nav {
+      position: sticky; top: 0; z-index: 1000;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+      padding: 10px 16px;
+      background: var(--midnight-plum);
+      color: var(--white);
+      font-size: 13px;
+      border-bottom: 1px solid rgba(var(--rgb-ultraviolet), 0.35);
+      box-shadow: 0 4px 16px rgba(var(--rgb-midnight-plum), 0.25);
+    }
+    .proto-label { font-weight: 600; margin-right: 8px; }
+    .prototype-nav a {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 8px;
+      background: rgba(var(--rgb-white), 0.08);
+      color: var(--white); text-decoration: none; font-weight: 500;
+      border: 1px solid transparent;
+    }
+    .prototype-nav a:hover { background: rgba(var(--rgb-ultraviolet), 0.45); }
+    .prototype-nav a.active {
+      background: #7A5CFF;
+      border-color: rgba(var(--rgb-white), 0.2);
+    }
+
+    .phase3-screen-anchor { scroll-margin-top: 52px; }
+
+    .app-shell { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: var(--sidebar-width); flex-shrink: 0;
+      background: #120C24 !important;
+      color: var(--white); display: flex; flex-direction: column; min-height: 100vh;
+      position: relative; overflow: hidden;
+    }
+    .sidebar::after {
+      content: '';
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: 220px;
+      background: radial-gradient(ellipse at center, rgba(122,92,255,0.45) 0%, rgba(179,108,255,0.2) 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+    }
+    .sidebar-inner {
+      position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%;
+      min-height: 0;
+      padding: 0 16px 20px;
+    }
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 22px 18px 28px;
+      margin-bottom: 8px;
+      color: inherit;
+    }
+    .sidebar-brand svg { flex-shrink: 0; display: block; filter: drop-shadow(0 2px 14px rgba(122, 92, 255, 0.35)); }
+    .brand-text { display: flex; flex-direction: column; min-width: 0; }
+    .brand-name {
+      display: block;
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+    .brand-sub {
+      display: block;
+      color: #B36CFF;
+      font-size: 7px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-top: 1px;
+      white-space: nowrap;
+    }
+    .nav { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px;
+      font-size: 14px; font-weight: 500; color: var(--white);
+      transition: background 0.15s ease;
+      border-right: 3px solid transparent;
+    }
+    .nav-item:hover { background: rgba(var(--rgb-white), 0.08); }
+    .nav-item.active {
+      background: #7A5CFF !important;
+      color: #ffffff !important;
+      border-right: 3px solid #7A5CFF !important;
+    }
+    .nav-item svg {
+      width: 18px; height: 18px; flex-shrink: 0;
+      stroke: currentColor;
+    }
+    .sidebar-atmosphere { flex: 1; min-height: 56px; margin: 12px -8px 8px; pointer-events: none; z-index: 1; position: relative; }
+    .sidebar-footer { margin-top: 0; padding-top: 24px; flex-shrink: 0; position: relative; z-index: 2; }
+    .merchant-card {
+      display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 10px;
+      background: rgba(var(--rgb-white), 0.08);
+    }
+    .merchant-avatar {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--ultraviolet), var(--luminous-orchid));
+      display: grid; place-items: center; font-size: 12px; font-weight: 600;
+      color: var(--white);
+    }
+    .merchant-meta { min-width: 0; }
+    .merchant-name {
+      font-size: 13px; font-weight: 600; color: var(--white);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .merchant-id { font-size: 11px; color: rgba(var(--rgb-white), 0.78); }
+
+    .main-wrap {
+      flex: 1; display: flex; flex-direction: column; min-width: 0;
+      max-width: calc(100vw - var(--sidebar-width));
+      background-color: #F6EFE8 !important;
+    }
+
+    /* Top bar — search visually centered, filters + CTA + actions right */
+    .phase3-topbar {
+      height: var(--topbar-height);
+      background: #ffffff;
+      border-bottom: 1px solid var(--mist-lavender);
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 24px; flex-shrink: 0; min-width: 0;
+    }
+    .phase3-topbar .topbar-search-wrap {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 0;
+    }
+    .phase3-topbar .search-field {
+      width: 100%; max-width: 480px; position: relative;
+    }
+    .phase3-topbar .search-field input {
+      width: 100%; height: 40px; border: 1px solid var(--input-border); border-radius: 8px;
+      padding: 0 14px 0 40px; font-size: 14px; color: var(--near-black); background: var(--white);
+    }
+    .phase3-topbar .search-field input::placeholder { color: var(--graphite-plum); font-size: 13px; }
+    .phase3-topbar .search-field input:focus { outline: none; border-color: var(--ultraviolet); }
+    .phase3-topbar .search-field .search-icon {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--graphite-plum); width: 18px; height: 18px;
+    }
+    .phase3-topbar .topbar-actions {
+      display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+      margin-left: 0;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      border-radius: 8px; font-size: 13px; font-weight: 600;
+      border: 1px solid transparent;
+      padding: 8px 14px; line-height: 1; white-space: nowrap;
+    }
+    .btn-primary {
+      background: #7A5CFF !important;
+      color: #ffffff !important;
+      border: none !important;
+    }
+    .btn-primary:hover:not(:disabled) { background: #6a4ee8 !important; }
+    .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; background: #a39bb8 !important; color: #fff !important; }
+    .btn-secondary {
+      background: var(--white); border-color: var(--input-border); color: var(--graphite-plum);
+      font-weight: 500; padding: 8px 12px; font-size: 13px;
+    }
+    .btn-ghost { background: transparent; border: none; padding: 8px; color: var(--graphite-plum); }
+    .user-pill { display: flex; align-items: center; gap: 8px; }
+    .user-avatar {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--mist-lavender);
+      display: grid; place-items: center; font-size: 13px; font-weight: 600; color: var(--ultraviolet);
+    }
+    .user-name { font-size: 13px; font-weight: 500; color: var(--near-black); }
+
+    .content {
+      padding: 20px 20px 40px; flex: 1; min-width: 0;
+      display: flex; flex-direction: column;
+    }
+    .breadcrumb {
+      font-size: 12px; font-weight: 500; color: var(--graphite-plum); margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    }
+    .breadcrumb a { color: var(--graphite-plum); text-decoration: underline; text-underline-offset: 2px; }
+    .breadcrumb-sep { opacity: 0.6; }
+    .breadcrumb-current { color: var(--near-black); text-decoration: none; }
+    .page-header { margin-bottom: 14px; flex-shrink: 0; }
+    .page-title {
+      font-size: 22px; font-weight: 700; color: var(--near-black); margin: 0 0 4px;
+      letter-spacing: -0.02em;
+    }
+    .page-subtitle { margin: 0; font-size: 13px; color: var(--graphite-plum); font-weight: 400; max-width: 860px; }
+
+    .table-toolbar {
+      display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 12px; margin-bottom: 12px;
+    }
+    .table-toolbar .toolbar-grow {
+      flex: 1; min-width: 200px; max-width: 360px; position: relative;
+    }
+    .table-toolbar .toolbar-grow input {
+      width: 100%; height: 36px; border: 1px solid var(--input-border); border-radius: 8px;
+      padding: 0 12px 0 36px; font-size: 13px; color: var(--near-black); background: var(--white);
+    }
+    .table-toolbar .toolbar-grow .search-icon {
+      position: absolute; left: 10px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--graphite-plum);
+    }
+    .filter-field label {
+      display: block; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em;
+      color: var(--graphite-plum); margin-bottom: 4px;
+    }
+    .filter-select {
+      height: 36px; border: 1px solid var(--input-border); border-radius: 8px;
+      padding: 0 28px 0 10px; font-size: 12px; color: var(--near-black); background: var(--white);
+      min-width: 108px; flex-shrink: 0; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234E465E' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 8px center;
+    }
+    .filter-select:focus { outline: none; border-color: var(--ultraviolet); }
+    .date-pair { display: flex; gap: 8px; align-items: flex-end; }
+    .date-pair .filter-field input {
+      height: 36px; width: 140px; border: 1px solid var(--input-border); border-radius: 8px;
+      padding: 0 10px; font-size: 13px;
+    }
+    .table-toolbar .btn-primary { height: 36px; padding: 0 14px; margin-left: auto; }
+
+    .card {
+      background: var(--white); border: 1px solid var(--mist-lavender); border-radius: 12px;
+      box-shadow: 0 1px 3px var(--shadow-card);
+      flex: 1; min-height: 0; display: flex; flex-direction: column;
+    }
+    .table-card { padding: 0; overflow: hidden; }
+    .table-scroll {
+      overflow-x: auto;
+      overflow-y: auto;
+      flex: 1;
+      max-height: calc(100vh - 240px);
+    }
+    .plans-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 12px;
+    }
+    .plans-table thead th {
+      position: sticky; top: 0; z-index: 2;
+      background: #F8F7FB;
+      text-align: left;
+      font-size: 12px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.03em; color: var(--graphite-plum);
+      padding: 10px 8px;
+      border-bottom: 1px solid #F0EEF6;
+      vertical-align: bottom;
+    }
+    .plans-table tbody td {
+      padding: 10px 8px; font-size: 12px; color: var(--near-black);
+      border-bottom: 1px solid #F0EEF6; vertical-align: middle;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .plans-table tbody tr:hover td { background: #F8F7FB; }
+    .link-mandate, .link-batch {
+      color: var(--ultraviolet); font-weight: 600; text-decoration: underline; text-underline-offset: 2px;
+      cursor: pointer;
+    }
+    .empty-hint { text-align: center; padding: 28px 12px; color: var(--graphite-plum); font-size: 13px; }
+
+    .badge {
+      display: inline-block; font-size: 10px; font-weight: 600; border-radius: 20px;
+      padding: 2px 8px; max-width: 100%; overflow: hidden; text-overflow: ellipsis;
+    }
+    .badge-signed { background: #F3F0FF; color: #7A5CFF; }
+    .badge-submitted { background: #DBEAFE; color: #1D4ED8; }
+    .badge-pending-bank { background: #FEF3C7; color: #B45309; }
+    .badge-approved { background: #DCFCE7; color: #15803D; }
+    .badge-rejected { background: #FFE8E7; color: #FF6B68; }
+    .badge-batch-submitted { background: #DBEAFE; color: #1D4ED8; }
+    .badge-processing { background: #FEF3C7; color: #B45309; }
+    .badge-completed { background: #DCFCE7; color: #15803D; }
+    .badge-partial { background: #FFF7ED; color: #C2410C; }
+    .badge-draft { background: #F4F4F5; color: #71717A; }
+
+    /* Accordion batch table */
+    .batch-main-row { cursor: pointer; }
+    .batch-main-row .chev { display: inline-block; color: var(--graphite-plum); font-size: 11px; }
+    .batch-detail-row td { background: #F8F7FB; padding: 0 !important; border-bottom: 1px solid #F0EEF6 !important; }
+    .batch-sub-wrap { padding: 12px 16px 16px 48px; }
+    .batch-sub-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .batch-sub-table th {
+      text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase;
+      color: var(--graphite-plum); padding: 6px 8px; background: #fff; border-radius: 6px 6px 0 0;
+    }
+    .batch-sub-table td { padding: 8px; border-bottom: 1px solid #F0EEF6; background: #fff; }
+
+    /* Mandate detail layout */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 65%) minmax(280px, 35%);
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 1100px) { .detail-grid { grid-template-columns: 1fr; } }
+    .info-card {
+      background: var(--white); border: 1px solid var(--mist-lavender); border-radius: 12px;
+      padding: 18px 20px; box-shadow: 0 1px 3px var(--shadow-card); margin-bottom: 16px;
+    }
+    .info-card h3 {
+      margin: 0 0 14px; font-size: 12px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.04em; color: var(--graphite-plum);
+      padding-bottom: 8px; border-bottom: 1px solid var(--mist-lavender);
+    }
+    .kv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+    @media (max-width: 720px) { .kv-grid { grid-template-columns: 1fr; } }
+    .kv-item .k { font-size: 11px; font-weight: 600; color: var(--graphite-plum); margin-bottom: 4px; }
+    .kv-item .v { font-size: 13px; font-weight: 500; color: var(--near-black); }
+
+    .timeline-card {
+      position: sticky; top: 72px;
+      background: var(--white); border: 1px solid var(--mist-lavender); border-radius: 12px;
+      padding: 18px 20px; box-shadow: 0 1px 3px var(--shadow-card);
+    }
+    .timeline-card h3 {
+      margin: 0 0 16px; font-size: 15px; font-weight: 600; color: var(--near-black);
+    }
+    .timeline { position: relative; padding-left: 20px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: #EAE5F4;
+    }
+    .timeline-entry { position: relative; margin-bottom: 20px; }
+    .timeline-entry::before {
+      content: ''; position: absolute; left: -17px; top: 8px; width: 10px; height: 10px; border-radius: 50%;
+      background: #7A5CFF; border: 2px solid white; box-shadow: 0 0 0 2px #7A5CFF;
+    }
+    .timeline-meta { font-size: 11px; color: #4E465E; }
+
+    /* Toast */
+    .phase3-toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120%);
+      z-index: 3000;
+      background: var(--near-black); color: #fff; padding: 12px 18px; border-radius: 10px;
+      font-size: 13px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      transition: transform 0.25s ease;
+      max-width: min(520px, calc(100vw - 48px));
+    }
+    .phase3-toast.show { transform: translateX(-50%) translateY(0); }
+    .phase3-toast a { color: #B36CFF; font-weight: 600; text-decoration: underline; }
+
+    .page-title-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
+    .page-title-code { font-size: 14px; font-weight: 600; color: var(--graphite-plum); }
+  </style>
+</head>
+<body>
+<div id="phase3-toast" class="phase3-toast" role="status" aria-live="polite" hidden></div>
+
+<nav class="prototype-nav" aria-label="Prototype screens">
+  <span class="proto-label">Phase 3 prototype</span>
+  <a href="#screen-sub001" data-target="screen-sub001">SCR-SUB-001: Pending Submission</a>
+  <a href="#screen-sub002" data-target="screen-sub002">SCR-SUB-002: Batch Log</a>
+  <a href="#screen-apr001" data-target="screen-apr001">SCR-APR-001: Approval Status</a>
+  <a href="#screen-apr002" data-target="screen-apr002">SCR-APR-002: Mandate Detail</a>
+</nav>
+
+<article class="phase3-screen-anchor" id="screen-sub001" aria-label="Mandates Pending Submission">
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="sidebar-inner">
+        <div class="sidebar-brand">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="logoGradP3s1" x1="4" y1="34" x2="30" y2="2" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#7A5CFF"/>
+                <stop offset="40%" stop-color="#9B6FFF"/>
+                <stop offset="70%" stop-color="#C96EE8"/>
+                <stop offset="100%" stop-color="#FF6B8A"/>
+              </linearGradient>
+              <linearGradient id="logoGrad2P3s1" x1="19" y1="34" x2="34" y2="4" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#B36CFF"/>
+                <stop offset="100%" stop-color="#FF5B6B"/>
+              </linearGradient>
+            </defs>
+            <path d="M4 34 C4 34 10 20 19 4 C19 4 14 14 11 22 C9 27 8 30 8 34 Z" fill="url(#logoGradP3s1)" opacity="0.95"/>
+            <path d="M34 34 C34 34 28 20 19 4 C19 4 24 14 27 22 C29 27 30 30 30 34 Z" fill="url(#logoGrad2P3s1)" opacity="0.9"/>
+            <path d="M11 23 Q19 19 27 23" stroke="url(#logoGradP3s1)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8"/>
+            <path d="M19 4 C19 4 20 8 21 12 C22 16 22 18 22 20 L19 26 L16 20 C16 18 16 16 17 12 C18 8 19 4 19 4 Z" fill="rgba(255,255,255,0.12)"/>
+          </svg>
+          <div class="brand-text">
+            <span class="brand-name">Autora</span>
+            <span class="brand-sub">DIRECT DEBIT PLATFORM</span>
+          </div>
+        </div>
+        <nav class="nav" aria-label="Primary">
+          <a class="nav-item" href="#"><i data-lucide="layout-dashboard"></i>Overview</a>
+          <a class="nav-item" href="#"><i data-lucide="credit-card"></i>Payment Plans</a>
+          <a class="nav-item" href="#"><i data-lucide="file-text"></i>Mandates</a>
+          <a class="nav-item active" href="#screen-sub001"><i data-lucide="send"></i>Submissions</a>
+          <a class="nav-item" href="#"><i data-lucide="banknote"></i>Collections</a>
+          <a class="nav-item" href="#"><i data-lucide="bar-chart-2"></i>Reports</a>
+          <a class="nav-item" href="#"><i data-lucide="settings"></i>Settings</a>
+        </nav>
+        <div class="sidebar-atmosphere" aria-hidden="true"></div>
+        <div class="sidebar-footer">
+          <div class="merchant-card">
+            <div class="merchant-avatar">DM</div>
+            <div class="merchant-meta">
+              <div class="merchant-name">Demo Merchant LLC</div>
+              <div class="merchant-id">MID-UAE-10294</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-wrap">
+      <header class="topbar phase3-topbar">
+        <div class="topbar-search-wrap">
+          <div class="search-field">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="search" placeholder="Search plans, mandates, and settings…" autocomplete="off" aria-label="Global search" />
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary"><i data-lucide="filter" style="width:16px;height:16px"></i> Filters</button>
+        <button type="button" class="btn btn-primary js-sub001-submit" disabled>Submit to Bank</button>
+        <div class="topbar-actions">
+          <button type="button" class="btn btn-ghost" aria-label="Notifications"><i data-lucide="bell" style="width:20px;height:20px"></i></button>
+          <div class="user-pill">
+            <div class="user-avatar">AK</div>
+            <span class="user-name">Amira K.</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="#">Dashboard</a><span class="breadcrumb-sep">/</span>
+          <a href="#">Submissions</a><span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-current">Pending Submission</span>
+        </nav>
+
+        <div class="page-header">
+          <h1 class="page-title">Mandates Pending Submission</h1>
+          <p class="page-subtitle">Select mandates to submit to the bank for approval.</p>
+        </div>
+
+        <div class="table-toolbar">
+          <div class="toolbar-grow">
+            <i data-lucide="search" class="search-icon"></i>
+            <label class="visually-hidden" for="sub001-search">Search mandates</label>
+            <input type="search" id="sub001-search" placeholder="Search by Mandate Reference or Payer Name…" autocomplete="off" />
+          </div>
+          <div class="date-pair">
+            <div class="filter-field">
+              <label for="sub001-from">From</label>
+              <input type="date" id="sub001-from" />
+            </div>
+            <div class="filter-field">
+              <label for="sub001-to">To</label>
+              <input type="date" id="sub001-to" />
+            </div>
+          </div>
+          <div class="filter-field">
+            <label for="sub001-freq">Frequency</label>
+            <select id="sub001-freq" class="filter-select" aria-label="Frequency filter">
+              <option value="all" selected>All Frequencies</option>
+              <option>Daily</option>
+              <option>Weekly</option>
+              <option>Monthly</option>
+              <option>Quarterly</option>
+              <option>Half-Yearly</option>
+              <option>Annually</option>
+              <option>One-Time</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-primary js-sub001-submit" disabled>Submit to Bank</button>
+        </div>
+
+        <div class="card table-card">
+          <div class="table-scroll">
+            <table class="plans-table" aria-label="Mandates pending submission">
+              <colgroup>
+                <col style="width:44px" />
+                <col style="width:14%" />
+                <col style="width:18%" />
+                <col style="width:12%" />
+                <col style="width:12%" />
+                <col style="width:16%" />
+                <col style="width:12%" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col"><input type="checkbox" id="sub001-master" aria-label="Select all mandates" /></th>
+                  <th scope="col">Mandate Reference</th>
+                  <th scope="col">Payer Name</th>
+                  <th scope="col">Frequency</th>
+                  <th scope="col">Amount (AED)</th>
+                  <th scope="col">Date Signed</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody id="sub001-tbody">
+                <tr data-search="mnd-2026-00847 ahmed al mansouri">
+                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00847" /></td>
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00847</a></td>
+                  <td>Ahmed Al Mansouri</td>
+                  <td>Monthly</td>
+                  <td>500.00</td>
+                  <td>07/05/2026 09:32</td>
+                  <td><span class="badge badge-signed">SIGNED</span></td>
+                </tr>
+                <tr data-search="mnd-2026-00848 sara al zaabi">
+                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00848" /></td>
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00848</a></td>
+                  <td>Sara Al Zaabi</td>
+                  <td>Weekly</td>
+                  <td>120.00</td>
+                  <td>07/05/2026 10:15</td>
+                  <td><span class="badge badge-signed">SIGNED</span></td>
+                </tr>
+                <tr data-search="mnd-2026-00849 khalid hassan">
+                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00849" /></td>
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00849</a></td>
+                  <td>Khalid Hassan</td>
+                  <td>Quarterly</td>
+                  <td>900.00</td>
+                  <td>07/05/2026 11:00</td>
+                  <td><span class="badge badge-signed">SIGNED</span></td>
+                </tr>
+                <tr data-search="mnd-2026-00850 fatima al nouri">
+                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00850" /></td>
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00850</a></td>
+                  <td>Fatima Al Nouri</td>
+                  <td>Monthly</td>
+                  <td>Variable</td>
+                  <td>07/05/2026 11:45</td>
+                  <td><span class="badge badge-signed">SIGNED</span></td>
+                </tr>
+                <tr data-search="mnd-2026-00851 mohammed al rashidi">
+                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00851" /></td>
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00851</a></td>
+                  <td>Mohammed Al Rashidi</td>
+                  <td>Annually</td>
+                  <td>2000.00</td>
+                  <td>07/05/2026 13:20</td>
+                  <td><span class="badge badge-signed">SIGNED</span></td>
+                </tr>
+                <tr data-search="mnd-2026-00852 layla al hammadi">
+                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00852" /></td>
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00852</a></td>
+                  <td>Layla Al Hammadi</td>
+                  <td>Monthly</td>
+                  <td>350.00</td>
+                  <td>07/05/2026 14:05</td>
+                  <td><span class="badge badge-signed">SIGNED</span></td>
+                </tr>
+                <tr data-search="mnd-2026-00853 omar al bloushi">
+                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00853" /></td>
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00853</a></td>
+                  <td>Omar Al Bloushi</td>
+                  <td>Half-Yearly</td>
+                  <td>4500.00</td>
+                  <td>07/05/2026 14:50</td>
+                  <td><span class="badge badge-signed">SIGNED</span></td>
+                </tr>
+                <tr data-search="mnd-2026-00854 nour al mazrouei">
+                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00854" /></td>
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00854</a></td>
+                  <td>Nour Al Mazrouei</td>
+                  <td>Monthly</td>
+                  <td>200.00</td>
+                  <td>07/05/2026 15:30</td>
+                  <td><span class="badge badge-signed">SIGNED</span></td>
+                </tr>
+                <tr data-search="mnd-2026-00855 hamad al suwaidi">
+                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00855" /></td>
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00855</a></td>
+                  <td>Hamad Al Suwaidi</td>
+                  <td>Weekly</td>
+                  <td>80.00</td>
+                  <td>07/05/2026 16:00</td>
+                  <td><span class="badge badge-signed">SIGNED</span></td>
+                </tr>
+                <tr data-search="mnd-2026-00856 mariam al dhaheri">
+                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00856" /></td>
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00856</a></td>
+                  <td>Mariam Al Dhaheri</td>
+                  <td>Monthly</td>
+                  <td>650.00</td>
+                  <td>07/05/2026 16:45</td>
+                  <td><span class="badge badge-signed">SIGNED</span></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="empty-hint" id="sub001-empty" hidden>No mandates are currently pending submission.</div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</article>
+<article class="phase3-screen-anchor" id="screen-sub002" aria-label="Submission Batch Log">
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="sidebar-inner">
+        <div class="sidebar-brand">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="logoGradP3s2" x1="4" y1="34" x2="30" y2="2" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#7A5CFF"/>
+                <stop offset="40%" stop-color="#9B6FFF"/>
+                <stop offset="70%" stop-color="#C96EE8"/>
+                <stop offset="100%" stop-color="#FF6B8A"/>
+              </linearGradient>
+              <linearGradient id="logoGrad2P3s2" x1="19" y1="34" x2="34" y2="4" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#B36CFF"/>
+                <stop offset="100%" stop-color="#FF5B6B"/>
+              </linearGradient>
+            </defs>
+            <path d="M4 34 C4 34 10 20 19 4 C19 4 14 14 11 22 C9 27 8 30 8 34 Z" fill="url(#logoGradP3s2)" opacity="0.95"/>
+            <path d="M34 34 C34 34 28 20 19 4 C19 4 24 14 27 22 C29 27 30 30 30 34 Z" fill="url(#logoGrad2P3s2)" opacity="0.9"/>
+            <path d="M11 23 Q19 19 27 23" stroke="url(#logoGradP3s2)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8"/>
+            <path d="M19 4 C19 4 20 8 21 12 C22 16 22 18 22 20 L19 26 L16 20 C16 18 16 16 17 12 C18 8 19 4 19 4 Z" fill="rgba(255,255,255,0.12)"/>
+          </svg>
+          <div class="brand-text">
+            <span class="brand-name">Autora</span>
+            <span class="brand-sub">DIRECT DEBIT PLATFORM</span>
+          </div>
+        </div>
+        <nav class="nav" aria-label="Primary">
+          <a class="nav-item" href="#"><i data-lucide="layout-dashboard"></i>Overview</a>
+          <a class="nav-item" href="#"><i data-lucide="credit-card"></i>Payment Plans</a>
+          <a class="nav-item" href="#"><i data-lucide="file-text"></i>Mandates</a>
+          <a class="nav-item active" href="#screen-sub001"><i data-lucide="send"></i>Submissions</a>
+          <a class="nav-item" href="#"><i data-lucide="banknote"></i>Collections</a>
+          <a class="nav-item" href="#"><i data-lucide="bar-chart-2"></i>Reports</a>
+          <a class="nav-item" href="#"><i data-lucide="settings"></i>Settings</a>
+        </nav>
+        <div class="sidebar-atmosphere" aria-hidden="true"></div>
+        <div class="sidebar-footer">
+          <div class="merchant-card">
+            <div class="merchant-avatar">DM</div>
+            <div class="merchant-meta">
+              <div class="merchant-name">Demo Merchant LLC</div>
+              <div class="merchant-id">MID-UAE-10294</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-wrap">
+      <header class="topbar phase3-topbar">
+        <div class="topbar-search-wrap">
+          <div class="search-field">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="search" placeholder="Search plans, mandates, and settings…" autocomplete="off" aria-label="Global search" />
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary"><i data-lucide="filter" style="width:16px;height:16px"></i> Filters</button>
+        <a class="btn btn-primary" href="#screen-sub001"><i data-lucide="plus" style="width:16px;height:16px"></i> New Submission</a>
+        <div class="topbar-actions">
+          <button type="button" class="btn btn-ghost" aria-label="Notifications"><i data-lucide="bell" style="width:20px;height:20px"></i></button>
+          <div class="user-pill">
+            <div class="user-avatar">AK</div>
+            <span class="user-name">Amira K.</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="#">Dashboard</a><span class="breadcrumb-sep">/</span>
+          <a href="#">Submissions</a><span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-current">Batch Log</span>
+        </nav>
+
+        <div class="page-header">
+          <h1 class="page-title">Submission Batch Log</h1>
+          <p class="page-subtitle">All mandate batches submitted to the bank.</p>
+        </div>
+
+        <div class="table-toolbar">
+          <div class="toolbar-grow">
+            <i data-lucide="search" class="search-icon"></i>
+            <label class="visually-hidden" for="sub002-search">Search batches</label>
+            <input type="search" id="sub002-search" placeholder="Search by Batch Reference or Submitted By…" autocomplete="off" />
+          </div>
+          <div class="date-pair">
+            <div class="filter-field">
+              <label for="sub002-from">From</label>
+              <input type="date" id="sub002-from" />
+            </div>
+            <div class="filter-field">
+              <label for="sub002-to">To</label>
+              <input type="date" id="sub002-to" />
+            </div>
+          </div>
+          <div class="filter-field">
+            <label for="sub002-batch-status">Batch Status</label>
+            <select id="sub002-batch-status" class="filter-select" aria-label="Batch status filter">
+              <option value="all" selected>All</option>
+              <option value="submitted">Submitted</option>
+              <option value="processing">Processing</option>
+              <option value="completed">Completed</option>
+              <option value="partial">Partially Completed</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card table-card">
+          <div class="table-scroll">
+            <table class="plans-table" aria-label="Submission batches">
+              <colgroup>
+                <col style="width:48px" />
+                <col style="width:18%" />
+                <col style="width:18%" />
+                <col style="width:18%" />
+                <col style="width:12%" />
+                <col style="width:18%" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col"><span class="visually-hidden">Expand</span></th>
+                  <th scope="col">Batch Reference</th>
+                  <th scope="col">Submitted By</th>
+                  <th scope="col">Submitted At</th>
+                  <th scope="col">Mandates Count</th>
+                  <th scope="col">Batch Status</th>
+                </tr>
+              </thead>
+              <tbody id="sub002-tbody">
+                <tr class="batch-main-row" data-batch-id="BATCH-2026-00124" data-batch-status="completed" data-search="batch-2026-00124 rpa">
+                  <td><span class="chev" aria-hidden="true">▶</span></td>
+                  <td>BATCH-2026-00124</td>
+                  <td>RPA</td>
+                  <td>07/05/2026 10:00</td>
+                  <td>15</td>
+                  <td><span class="badge badge-completed">Completed</span></td>
+                </tr>
+                <tr class="batch-detail-row" hidden>
+                  <td colspan="6">
+                    <div class="batch-sub-wrap">
+                      <table class="batch-sub-table">
+                        <thead>
+                          <tr>
+                            <th>Mandate Reference</th>
+                            <th>Payer Name</th>
+                            <th>Frequency</th>
+                            <th>Amount (AED)</th>
+                            <th>Bank Response Status</th>
+                            <th>Response Received At</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><a class="link-mandate" href="#screen-apr002">MND-2026-00837</a></td>
+                            <td>Ahmed Al Mansouri</td>
+                            <td>Monthly</td>
+                            <td>500.00</td>
+                            <td><span class="badge badge-approved">APPROVED</span></td>
+                            <td>08/05/2026</td>
+                          </tr>
+                          <tr>
+                            <td><a class="link-mandate" href="#screen-apr002">MND-2026-00838</a></td>
+                            <td>Sara Al Zaabi</td>
+                            <td>Weekly</td>
+                            <td>120.00</td>
+                            <td><span class="badge badge-approved">APPROVED</span></td>
+                            <td>08/05/2026</td>
+                          </tr>
+                          <tr>
+                            <td><a class="link-mandate" href="#screen-apr002">MND-2026-00839</a></td>
+                            <td>Khalid Hassan</td>
+                            <td>Quarterly</td>
+                            <td>900.00</td>
+                            <td><span class="badge badge-rejected">REJECTED</span></td>
+                            <td>08/05/2026</td>
+                          </tr>
+                          <tr>
+                            <td><a class="link-mandate" href="#screen-apr002">MND-2026-00840</a></td>
+                            <td>Fatima Al Nouri</td>
+                            <td>Monthly</td>
+                            <td>Variable</td>
+                            <td><span class="badge badge-approved">APPROVED</span></td>
+                            <td>08/05/2026</td>
+                          </tr>
+                          <tr>
+                            <td><a class="link-mandate" href="#screen-apr002">MND-2026-00841</a></td>
+                            <td>Omar Al Bloushi</td>
+                            <td>Half-Yearly</td>
+                            <td>4500.00</td>
+                            <td><span class="badge badge-approved">APPROVED</span></td>
+                            <td>08/05/2026</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr class="batch-main-row" data-batch-id="BATCH-2026-00125" data-batch-status="partial" data-search="batch-2026-00125 mohammed al rashidi">
+                  <td><span class="chev" aria-hidden="true">▶</span></td>
+                  <td>BATCH-2026-00125</td>
+                  <td>Mohammed Al Rashidi</td>
+                  <td>07/05/2026 10:00</td>
+                  <td>3</td>
+                  <td><span class="badge badge-partial">Partially Completed</span></td>
+                </tr>
+                <tr class="batch-detail-row" hidden><td colspan="6"><div class="batch-sub-wrap"><p class="empty-hint" style="padding:12px">Expand prototype detail not loaded for this batch.</p></div></td></tr>
+
+                <tr class="batch-main-row" data-batch-id="BATCH-2026-00126" data-batch-status="completed" data-search="batch-2026-00126 rpa">
+                  <td><span class="chev" aria-hidden="true">▶</span></td>
+                  <td>BATCH-2026-00126</td>
+                  <td>RPA</td>
+                  <td>06/05/2026 14:30</td>
+                  <td>15</td>
+                  <td><span class="badge badge-completed">Completed</span></td>
+                </tr>
+                <tr class="batch-detail-row" hidden><td colspan="6"><div class="batch-sub-wrap"><p class="empty-hint" style="padding:12px">Expand prototype detail not loaded for this batch.</p></div></td></tr>
+
+                <tr class="batch-main-row" data-batch-id="BATCH-2026-00127" data-batch-status="completed" data-search="batch-2026-00127 rpa">
+                  <td><span class="chev" aria-hidden="true">▶</span></td>
+                  <td>BATCH-2026-00127</td>
+                  <td>RPA</td>
+                  <td>05/05/2026 09:15</td>
+                  <td>12</td>
+                  <td><span class="badge badge-completed">Completed</span></td>
+                </tr>
+                <tr class="batch-detail-row" hidden><td colspan="6"><div class="batch-sub-wrap"><p class="empty-hint" style="padding:12px">Expand prototype detail not loaded for this batch.</p></div></td></tr>
+
+                <tr class="batch-main-row" data-batch-id="BATCH-2026-00128" data-batch-status="processing" data-search="batch-2026-00128 sara al zaabi">
+                  <td><span class="chev" aria-hidden="true">▶</span></td>
+                  <td>BATCH-2026-00128</td>
+                  <td>Sara Al Zaabi (Ops)</td>
+                  <td>04/05/2026 11:00</td>
+                  <td>8</td>
+                  <td><span class="badge badge-processing">Processing</span></td>
+                </tr>
+                <tr class="batch-detail-row" hidden><td colspan="6"><div class="batch-sub-wrap"><p class="empty-hint" style="padding:12px">Expand prototype detail not loaded for this batch.</p></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</article>
+<article class="phase3-screen-anchor" id="screen-apr001" aria-label="Bank Approval Status">
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="sidebar-inner">
+        <div class="sidebar-brand">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="logoGradP3s3" x1="4" y1="34" x2="30" y2="2" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#7A5CFF"/>
+                <stop offset="40%" stop-color="#9B6FFF"/>
+                <stop offset="70%" stop-color="#C96EE8"/>
+                <stop offset="100%" stop-color="#FF6B8A"/>
+              </linearGradient>
+              <linearGradient id="logoGrad2P3s3" x1="19" y1="34" x2="34" y2="4" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#B36CFF"/>
+                <stop offset="100%" stop-color="#FF5B6B"/>
+              </linearGradient>
+            </defs>
+            <path d="M4 34 C4 34 10 20 19 4 C19 4 14 14 11 22 C9 27 8 30 8 34 Z" fill="url(#logoGradP3s3)" opacity="0.95"/>
+            <path d="M34 34 C34 34 28 20 19 4 C19 4 24 14 27 22 C29 27 30 30 30 34 Z" fill="url(#logoGrad2P3s3)" opacity="0.9"/>
+            <path d="M11 23 Q19 19 27 23" stroke="url(#logoGradP3s3)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8"/>
+            <path d="M19 4 C19 4 20 8 21 12 C22 16 22 18 22 20 L19 26 L16 20 C16 18 16 16 17 12 C18 8 19 4 19 4 Z" fill="rgba(255,255,255,0.12)"/>
+          </svg>
+          <div class="brand-text">
+            <span class="brand-name">Autora</span>
+            <span class="brand-sub">DIRECT DEBIT PLATFORM</span>
+          </div>
+        </div>
+        <nav class="nav" aria-label="Primary">
+          <a class="nav-item" href="#"><i data-lucide="layout-dashboard"></i>Overview</a>
+          <a class="nav-item" href="#"><i data-lucide="credit-card"></i>Payment Plans</a>
+          <a class="nav-item" href="#"><i data-lucide="file-text"></i>Mandates</a>
+          <a class="nav-item active" href="#screen-sub001"><i data-lucide="send"></i>Submissions</a>
+          <a class="nav-item" href="#"><i data-lucide="banknote"></i>Collections</a>
+          <a class="nav-item" href="#"><i data-lucide="bar-chart-2"></i>Reports</a>
+          <a class="nav-item" href="#"><i data-lucide="settings"></i>Settings</a>
+        </nav>
+        <div class="sidebar-atmosphere" aria-hidden="true"></div>
+        <div class="sidebar-footer">
+          <div class="merchant-card">
+            <div class="merchant-avatar">DM</div>
+            <div class="merchant-meta">
+              <div class="merchant-name">Demo Merchant LLC</div>
+              <div class="merchant-id">MID-UAE-10294</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-wrap">
+      <header class="topbar phase3-topbar">
+        <div class="topbar-search-wrap">
+          <div class="search-field">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="search" placeholder="Search plans, mandates, and settings…" autocomplete="off" aria-label="Global search" />
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary"><i data-lucide="filter" style="width:16px;height:16px"></i> Filters</button>
+        <button type="button" class="btn btn-secondary" id="apr001-export"><i data-lucide="download" style="width:16px;height:16px"></i> Export</button>
+        <div class="topbar-actions">
+          <button type="button" class="btn btn-ghost" aria-label="Notifications"><i data-lucide="bell" style="width:20px;height:20px"></i></button>
+          <div class="user-pill">
+            <div class="user-avatar">AK</div>
+            <span class="user-name">Amira K.</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="#">Dashboard</a><span class="breadcrumb-sep">/</span>
+          <a href="#">Submissions</a><span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-current">Approval Status</span>
+        </nav>
+
+        <div class="page-header">
+          <h1 class="page-title">Bank Approval Status</h1>
+          <p class="page-subtitle">Monitor mandate responses from the bank.</p>
+        </div>
+
+        <div class="table-toolbar">
+          <div class="toolbar-grow">
+            <i data-lucide="search" class="search-icon"></i>
+            <label class="visually-hidden" for="apr001-search">Search mandates</label>
+            <input type="search" id="apr001-search" placeholder="Search by Mandate Reference or Payer Name…" autocomplete="off" />
+          </div>
+          <div class="filter-field">
+            <label for="apr001-status">Bank Response Status</label>
+            <select id="apr001-status" class="filter-select" aria-label="Bank response status">
+              <option value="all" selected>All</option>
+              <option value="SUBMITTED_TO_BANK">SUBMITTED_TO_BANK</option>
+              <option value="PENDING_BANK_APPROVAL">PENDING_BANK_APPROVAL</option>
+              <option value="APPROVED">APPROVED</option>
+              <option value="REJECTED">REJECTED</option>
+            </select>
+          </div>
+          <div class="date-pair">
+            <div class="filter-field">
+              <label for="apr001-from">From</label>
+              <input type="date" id="apr001-from" />
+            </div>
+            <div class="filter-field">
+              <label for="apr001-to">To</label>
+              <input type="date" id="apr001-to" />
+            </div>
+          </div>
+          <div class="filter-field">
+            <label for="apr001-freq">Frequency</label>
+            <select id="apr001-freq" class="filter-select" aria-label="Frequency filter">
+              <option value="all" selected>All Frequencies</option>
+              <option>Daily</option>
+              <option>Weekly</option>
+              <option>Monthly</option>
+              <option>Quarterly</option>
+              <option>Half-Yearly</option>
+              <option>Annually</option>
+              <option>One-Time</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card table-card">
+          <div class="table-scroll">
+            <table class="plans-table" aria-label="Bank approval status">
+              <colgroup>
+                <col style="width:13%" />
+                <col style="width:15%" />
+                <col style="width:10%" />
+                <col style="width:11%" />
+                <col style="width:14%" />
+                <col style="width:14%" />
+                <col style="width:14%" />
+                <col style="width:12%" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col">Mandate Reference</th>
+                  <th scope="col">Payer Name</th>
+                  <th scope="col">Frequency</th>
+                  <th scope="col">Amount (AED)</th>
+                  <th scope="col">Submitted At</th>
+                  <th scope="col">Batch Reference</th>
+                  <th scope="col">Bank Response Status</th>
+                  <th scope="col">Response Date</th>
+                </tr>
+              </thead>
+              <tbody id="apr001-tbody">
+                <tr data-search="mnd-2026-00837 ahmed al mansouri" data-status="APPROVED">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00837</a></td>
+                  <td>Ahmed Al Mansouri</td>
+                  <td>Monthly</td>
+                  <td>500.00</td>
+                  <td>07/05/2026 10:00</td>
+                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></td>
+                  <td><span class="badge badge-approved">APPROVED</span></td>
+                  <td>08/05/2026</td>
+                </tr>
+                <tr data-search="mnd-2026-00838 sara al zaabi" data-status="APPROVED">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00838</a></td>
+                  <td>Sara Al Zaabi</td>
+                  <td>Weekly</td>
+                  <td>120.00</td>
+                  <td>07/05/2026 10:00</td>
+                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></td>
+                  <td><span class="badge badge-approved">APPROVED</span></td>
+                  <td>08/05/2026</td>
+                </tr>
+                <tr data-search="mnd-2026-00839 khalid hassan" data-status="REJECTED">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00839</a></td>
+                  <td>Khalid Hassan</td>
+                  <td>Quarterly</td>
+                  <td>900.00</td>
+                  <td>07/05/2026 10:00</td>
+                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></td>
+                  <td><span class="badge badge-rejected">REJECTED</span></td>
+                  <td>08/05/2026</td>
+                </tr>
+                <tr data-search="mnd-2026-00840 fatima al nouri" data-status="PENDING_BANK_APPROVAL">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00840</a></td>
+                  <td>Fatima Al Nouri</td>
+                  <td>Monthly</td>
+                  <td>Variable</td>
+                  <td>07/05/2026 10:00</td>
+                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></td>
+                  <td><span class="badge badge-pending-bank">PENDING_BANK_APPROVAL</span></td>
+                  <td>—</td>
+                </tr>
+                <tr data-search="mnd-2026-00841 omar al bloushi" data-status="APPROVED">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00841</a></td>
+                  <td>Omar Al Bloushi</td>
+                  <td>Half-Yearly</td>
+                  <td>4500.00</td>
+                  <td>07/05/2026 10:00</td>
+                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></td>
+                  <td><span class="badge badge-approved">APPROVED</span></td>
+                  <td>08/05/2026</td>
+                </tr>
+                <tr data-search="mnd-2026-00842 nour al mazrouei" data-status="SUBMITTED_TO_BANK">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00842</a></td>
+                  <td>Nour Al Mazrouei</td>
+                  <td>Monthly</td>
+                  <td>200.00</td>
+                  <td>07/05/2026 10:00</td>
+                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00125</a></td>
+                  <td><span class="badge badge-submitted">SUBMITTED_TO_BANK</span></td>
+                  <td>—</td>
+                </tr>
+                <tr data-search="mnd-2026-00843 hamad al suwaidi" data-status="PENDING_BANK_APPROVAL">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00843</a></td>
+                  <td>Hamad Al Suwaidi</td>
+                  <td>Weekly</td>
+                  <td>80.00</td>
+                  <td>07/05/2026 10:00</td>
+                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00125</a></td>
+                  <td><span class="badge badge-pending-bank">PENDING_BANK_APPROVAL</span></td>
+                  <td>—</td>
+                </tr>
+                <tr data-search="mnd-2026-00844 mariam al dhaheri" data-status="APPROVED">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00844</a></td>
+                  <td>Mariam Al Dhaheri</td>
+                  <td>Monthly</td>
+                  <td>650.00</td>
+                  <td>06/05/2026 14:30</td>
+                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00126</a></td>
+                  <td><span class="badge badge-approved">APPROVED</span></td>
+                  <td>07/05/2026</td>
+                </tr>
+                <tr data-search="mnd-2026-00845 layla al hammadi" data-status="APPROVED">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00845</a></td>
+                  <td>Layla Al Hammadi</td>
+                  <td>Monthly</td>
+                  <td>350.00</td>
+                  <td>06/05/2026 14:30</td>
+                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00126</a></td>
+                  <td><span class="badge badge-approved">APPROVED</span></td>
+                  <td>07/05/2026</td>
+                </tr>
+                <tr data-search="mnd-2026-00846 mohammed al rashidi" data-status="REJECTED">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00846</a></td>
+                  <td>Mohammed Al Rashidi</td>
+                  <td>Annually</td>
+                  <td>2000.00</td>
+                  <td>05/05/2026 09:15</td>
+                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00127</a></td>
+                  <td><span class="badge badge-rejected">REJECTED</span></td>
+                  <td>06/05/2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</article>
+
+<article class="phase3-screen-anchor" id="screen-apr002" aria-label="Mandate Detail">
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="sidebar-inner">
+        <div class="sidebar-brand">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="logoGradP3s4" x1="4" y1="34" x2="30" y2="2" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#7A5CFF"/>
+                <stop offset="40%" stop-color="#9B6FFF"/>
+                <stop offset="70%" stop-color="#C96EE8"/>
+                <stop offset="100%" stop-color="#FF6B8A"/>
+              </linearGradient>
+              <linearGradient id="logoGrad2P3s4" x1="19" y1="34" x2="34" y2="4" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#B36CFF"/>
+                <stop offset="100%" stop-color="#FF5B6B"/>
+              </linearGradient>
+            </defs>
+            <path d="M4 34 C4 34 10 20 19 4 C19 4 14 14 11 22 C9 27 8 30 8 34 Z" fill="url(#logoGradP3s4)" opacity="0.95"/>
+            <path d="M34 34 C34 34 28 20 19 4 C19 4 24 14 27 22 C29 27 30 30 30 34 Z" fill="url(#logoGrad2P3s4)" opacity="0.9"/>
+            <path d="M11 23 Q19 19 27 23" stroke="url(#logoGradP3s4)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8"/>
+            <path d="M19 4 C19 4 20 8 21 12 C22 16 22 18 22 20 L19 26 L16 20 C16 18 16 16 17 12 C18 8 19 4 19 4 Z" fill="rgba(255,255,255,0.12)"/>
+          </svg>
+          <div class="brand-text">
+            <span class="brand-name">Autora</span>
+            <span class="brand-sub">DIRECT DEBIT PLATFORM</span>
+          </div>
+        </div>
+        <nav class="nav" aria-label="Primary">
+          <a class="nav-item" href="#"><i data-lucide="layout-dashboard"></i>Overview</a>
+          <a class="nav-item" href="#"><i data-lucide="credit-card"></i>Payment Plans</a>
+          <a class="nav-item" href="#"><i data-lucide="file-text"></i>Mandates</a>
+          <a class="nav-item active" href="#screen-sub001"><i data-lucide="send"></i>Submissions</a>
+          <a class="nav-item" href="#"><i data-lucide="banknote"></i>Collections</a>
+          <a class="nav-item" href="#"><i data-lucide="bar-chart-2"></i>Reports</a>
+          <a class="nav-item" href="#"><i data-lucide="settings"></i>Settings</a>
+        </nav>
+        <div class="sidebar-atmosphere" aria-hidden="true"></div>
+        <div class="sidebar-footer">
+          <div class="merchant-card">
+            <div class="merchant-avatar">DM</div>
+            <div class="merchant-meta">
+              <div class="merchant-name">Demo Merchant LLC</div>
+              <div class="merchant-id">MID-UAE-10294</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-wrap">
+      <header class="topbar phase3-topbar">
+        <div class="topbar-search-wrap">
+          <div class="search-field">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="search" placeholder="Search plans, mandates, and settings…" autocomplete="off" aria-label="Global search" />
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary"><i data-lucide="filter" style="width:16px;height:16px"></i> Filters</button>
+        <div class="topbar-actions">
+          <button type="button" class="btn btn-ghost" aria-label="Notifications"><i data-lucide="bell" style="width:20px;height:20px"></i></button>
+          <div class="user-pill">
+            <div class="user-avatar">AK</div>
+            <span class="user-name">Amira K.</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="#">Dashboard</a><span class="breadcrumb-sep">/</span>
+          <a href="#">Submissions</a><span class="breadcrumb-sep">/</span>
+          <a href="#screen-apr001">Approval Status</a><span class="breadcrumb-sep">/</span>
+          <span class="breadcrumb-current">Mandate Detail</span>
+        </nav>
+
+        <div class="page-header">
+          <div class="page-title-row">
+            <h1 class="page-title">Mandate Detail</h1>
+            <span class="page-title-code">MND-2026-00847</span>
+          </div>
+        </div>
+
+        <div class="detail-grid">
+          <div class="detail-main">
+            <section class="info-card" aria-labelledby="apr002-payer-h">
+              <h3 id="apr002-payer-h">Payer Information</h3>
+              <div class="kv-grid">
+                <div class="kv-item"><div class="k">Mandate Reference</div><div class="v">MND-2026-00847</div></div>
+                <div class="kv-item"><div class="k">Payer Name</div><div class="v">Ahmed Al Mansouri</div></div>
+                <div class="kv-item" style="grid-column:1/-1"><div class="k">Contact Detail</div><div class="v">+971 50 123 4567</div></div>
+              </div>
+            </section>
+
+            <section class="info-card" aria-labelledby="apr002-md-h">
+              <h3 id="apr002-md-h">Mandate Details</h3>
+              <div class="kv-grid">
+                <div class="kv-item"><div class="k">Merchant Name</div><div class="v">Demo Merchant LLC</div></div>
+                <div class="kv-item"><div class="k">Frequency</div><div class="v">Monthly</div></div>
+                <div class="kv-item"><div class="k">Amount Type</div><div class="v">Fixed</div></div>
+                <div class="kv-item"><div class="k">Collection Amount</div><div class="v">AED 500.00</div></div>
+                <div class="kv-item"><div class="k">Start Date</div><div class="v">01/09/2026</div></div>
+                <div class="kv-item"><div class="k">End Date</div><div class="v">01/09/2027</div></div>
+                <div class="kv-item" style="grid-column:1/-1"><div class="k">Lifetime</div><div class="v">1 Year</div></div>
+              </div>
+            </section>
+
+            <section class="info-card" aria-labelledby="apr002-bank-h">
+              <h3 id="apr002-bank-h">Submission &amp; Bank Response</h3>
+              <div class="kv-grid">
+                <div class="kv-item"><div class="k">Current Status</div><div class="v"><span class="badge badge-approved">APPROVED</span></div></div>
+                <div class="kv-item"><div class="k">Batch Reference</div><div class="v"><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></div></div>
+                <div class="kv-item"><div class="k">Submitted At</div><div class="v">07/05/2026 10:00</div></div>
+                <div class="kv-item"><div class="k">Bank Response Code</div><div class="v">00</div></div>
+                <div class="kv-item" style="grid-column:1/-1"><div class="k">Bank Response Description</div><div class="v">Mandate approved successfully</div></div>
+                <div class="kv-item" style="grid-column:1/-1"><div class="k">Response Received At</div><div class="v">08/05/2026 09:15</div></div>
+              </div>
+            </section>
+          </div>
+
+          <aside class="detail-aside">
+            <div class="timeline-card">
+              <h3>Status History</h3>
+              <div class="timeline">
+                <div class="timeline-entry">
+                  <span class="badge badge-approved">APPROVED</span><span class="timeline-meta"> · 08/05/2026 09:15 · Triggered by: RPA</span>
+                </div>
+                <div class="timeline-entry">
+                  <span class="badge badge-pending-bank">PENDING_BANK_APPROVAL</span><span class="timeline-meta"> · 07/05/2026 10:15 · Triggered by: RPA</span>
+                </div>
+                <div class="timeline-entry">
+                  <span class="badge badge-submitted">SUBMITTED_TO_BANK</span><span class="timeline-meta"> · 07/05/2026 10:00 · Triggered by: RPA</span>
+                </div>
+                <div class="timeline-entry">
+                  <span class="badge badge-signed">SIGNED</span><span class="timeline-meta"> · 07/05/2026 09:32 · Triggered by: Payer</span>
+                </div>
+                <div class="timeline-entry">
+                  <span class="badge badge-signed">PENDING_SIGNATURE</span><span class="timeline-meta"> · 07/05/2026 09:05 · Triggered by: Mohammed Al Rashidi (Ops)</span>
+                </div>
+                <div class="timeline-entry">
+                  <span class="badge badge-draft">DRAFT</span><span class="timeline-meta"> · 07/05/2026 09:00 · Triggered by: Mohammed Al Rashidi (Ops)</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+  </div>
+</article>
+<script>
+(function () {
+  function initSub001() {
+    var tbody = document.getElementById("sub001-tbody");
+    var master = document.getElementById("sub001-master");
+    var search = document.getElementById("sub001-search");
+    var empty = document.getElementById("sub001-empty");
+    var submits = document.querySelectorAll(".js-sub001-submit");
+    var toast = document.getElementById("phase3-toast");
+    if (!tbody || !master) return;
+
+    function getVisibleRows() {
+      return Array.prototype.slice.call(tbody.querySelectorAll("tr")).filter(function (tr) {
+        return tr.style.display !== "none";
+      });
+    }
+
+    function updateSubmitState() {
+      var n = tbody.querySelectorAll(".sub001-cb:checked").length;
+      submits.forEach(function (b) {
+        b.disabled = n === 0;
+      });
+    }
+
+    function updateMasterCheckbox() {
+      var vis = getVisibleRows();
+      var cbs = vis.map(function (tr) { return tr.querySelector(".sub001-cb"); }).filter(Boolean);
+      var checked = cbs.filter(function (c) { return c.checked; }).length;
+      master.checked = cbs.length > 0 && checked === cbs.length;
+      master.indeterminate = checked > 0 && checked < cbs.length;
+    }
+
+    function applySearch() {
+      var q = (search.value || "").toLowerCase().trim();
+      tbody.querySelectorAll("tr").forEach(function (tr) {
+        var hay = (tr.getAttribute("data-search") || "").toLowerCase();
+        tr.style.display = !q || hay.indexOf(q) !== -1 ? "" : "none";
+      });
+      var visibleCount = getVisibleRows().length;
+      empty.hidden = visibleCount > 0;
+      master.disabled = visibleCount === 0;
+      updateMasterCheckbox();
+      updateSubmitState();
+    }
+
+    master.addEventListener("change", function () {
+      getVisibleRows().forEach(function (tr) {
+        var cb = tr.querySelector(".sub001-cb");
+        if (cb) cb.checked = master.checked;
+      });
+      updateMasterCheckbox();
+      updateSubmitState();
+    });
+
+    tbody.addEventListener("change", function (e) {
+      if (e.target && e.target.classList.contains("sub001-cb")) {
+        updateMasterCheckbox();
+        updateSubmitState();
+      }
+    });
+
+    search.addEventListener("input", applySearch);
+
+    submits.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var checks = Array.prototype.slice.call(tbody.querySelectorAll(".sub001-cb:checked"));
+        var n = checks.length;
+        if (!n) return;
+        var msg =
+          n +
+          " mandate" +
+          (n === 1 ? "" : "s") +
+          " submitted successfully in 1 batch. " +
+          '<a href="#screen-sub002">View in Submission Log.</a>';
+        toast.innerHTML = msg;
+        toast.hidden = false;
+        requestAnimationFrame(function () { toast.classList.add("show"); });
+        setTimeout(function () {
+          checks.forEach(function (cb) {
+            var tr = cb.closest("tr");
+            if (tr) tr.remove();
+          });
+          toast.classList.remove("show");
+          setTimeout(function () { toast.hidden = true; }, 280);
+          master.checked = false;
+          master.indeterminate = false;
+          applySearch();
+          updateSubmitState();
+          if (window.lucide && lucide.createIcons) lucide.createIcons();
+        }, 3000);
+      });
+    });
+
+    applySearch();
+  }
+
+  function initSub002() {
+    var tbody = document.getElementById("sub002-tbody");
+    var search = document.getElementById("sub002-search");
+    var statusSel = document.getElementById("sub002-batch-status");
+    if (!tbody) return;
+
+    function setChevron(mainRow, open) {
+      var chev = mainRow.querySelector(".chev");
+      if (chev) chev.textContent = open ? "▼" : "▶";
+      mainRow.classList.toggle("is-open", open);
+    }
+
+    function closeAll() {
+      tbody.querySelectorAll(".batch-main-row").forEach(function (m) {
+        setChevron(m, false);
+        var d = m.nextElementSibling;
+        if (d && d.classList.contains("batch-detail-row")) d.hidden = true;
+      });
+    }
+
+    tbody.querySelectorAll(".batch-main-row").forEach(function (main) {
+      main.addEventListener("click", function (e) {
+        var detail = main.nextElementSibling;
+        if (!detail || !detail.classList.contains("batch-detail-row")) return;
+        var wasHidden = detail.hidden;
+        closeAll();
+        if (wasHidden) {
+          detail.hidden = false;
+          setChevron(main, true);
+        }
+      });
+    });
+
+    function applyFilters() {
+      var q = (search.value || "").toLowerCase().trim();
+      var st = statusSel.value;
+      tbody.querySelectorAll(".batch-main-row").forEach(function (main) {
+        var detail = main.nextElementSibling;
+        var hay = (main.getAttribute("data-search") || "").toLowerCase();
+        var okSearch = !q || hay.indexOf(q) !== -1;
+        var okStatus = st === "all" || main.getAttribute("data-batch-status") === st;
+        var show = okSearch && okStatus;
+        main.style.display = show ? "" : "none";
+        if (detail && detail.classList.contains("batch-detail-row")) {
+          detail.style.display = show ? "" : "none";
+          if (!show) {
+            detail.hidden = true;
+            setChevron(main, false);
+          }
+        }
+      });
+    }
+
+    search.addEventListener("input", applyFilters);
+    statusSel.addEventListener("change", applyFilters);
+  }
+
+  function initApr001() {
+    var tbody = document.getElementById("apr001-tbody");
+    var search = document.getElementById("apr001-search");
+    var statusSel = document.getElementById("apr001-status");
+    if (!tbody) return;
+
+    function apply() {
+      var q = (search.value || "").toLowerCase().trim();
+      var st = statusSel.value;
+      tbody.querySelectorAll("tr").forEach(function (tr) {
+        var hay = (tr.getAttribute("data-search") || "").toLowerCase();
+        var rowStatus = tr.getAttribute("data-status") || "";
+        var okSearch = !q || hay.indexOf(q) !== -1;
+        var okStatus = st === "all" || rowStatus === st;
+        tr.style.display = okSearch && okStatus ? "" : "none";
+      });
+    }
+
+    search.addEventListener("input", apply);
+    statusSel.addEventListener("change", apply);
+  }
+
+  function applyNavHash() {
+    var h = (window.location.hash || "").replace(/^#/, "");
+    document.querySelectorAll(".prototype-nav a[data-target]").forEach(function (a) {
+      a.classList.toggle("active", a.getAttribute("data-target") === h);
+    });
+  }
+
+  function scrollToHashScreen() {
+    var h = (window.location.hash || "").replace(/^#/, "");
+    if (!h) return;
+    var el = document.getElementById(h);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  window.addEventListener("hashchange", function () {
+    applyNavHash();
+    scrollToHashScreen();
+  });
+  window.addEventListener("load", function () {
+    if (!window.location.hash) {
+      try { history.replaceState(null, "", "#screen-sub001"); } catch (e) {}
+    }
+    applyNavHash();
+    scrollToHashScreen();
+    initSub001();
+    initSub002();
+    initApr001();
+    if (window.lucide && lucide.createIcons) lucide.createIcons();
+  });
+})();
+</script>
+</body>
+</html>
