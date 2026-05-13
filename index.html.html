@@ -320,7 +320,7 @@
       display: inline-block; font-size: 10px; font-weight: 600; border-radius: 20px;
       padding: 2px 8px; max-width: 100%; overflow: hidden; text-overflow: ellipsis;
     }
-    .badge-signed { background: #F3F0FF; color: #7A5CFF; }
+    .badge-pending-submission { background: #F3F0FF; color: #7A5CFF; }
     .badge-submitted { background: #DBEAFE; color: #1D4ED8; }
     .badge-pending-bank { background: #FEF3C7; color: #B45309; }
     .badge-approved { background: #DCFCE7; color: #15803D; }
@@ -543,6 +543,201 @@
 
     .page-title-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
     .page-title-code { font-size: 14px; font-weight: 600; color: var(--graphite-plum); }
+
+    .export-dropdown-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    .export-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      background: white;
+      border: 1px solid #EAE5F4;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      min-width: 160px;
+      z-index: 100;
+      overflow: hidden;
+    }
+    .export-menu button {
+      display: block;
+      width: 100%;
+      padding: 10px 16px;
+      text-align: left;
+      background: none;
+      border: none;
+      font-size: 13px;
+      font-family: Inter, sans-serif;
+      color: #120C24;
+      cursor: pointer;
+    }
+    .export-menu button:hover {
+      background: #F8F7FB;
+    }
+
+    .sort-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0 2px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    .sort-arrow {
+      font-size: 11px;
+      color: #9CA3AF;
+      user-select: none;
+      transition: color 0.15s;
+    }
+
+    .sort-btn:hover .sort-arrow { color: #7A5CFF; }
+
+    .sort-dropdown {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      background: white;
+      border: 1px solid #EAE5F4;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      min-width: 180px;
+      z-index: 500;
+      overflow: hidden;
+    }
+
+    .sort-dropdown button {
+      display: block;
+      width: 100%;
+      padding: 9px 16px;
+      text-align: left;
+      background: none;
+      border: none;
+      font-size: 13px;
+      font-family: Inter, sans-serif;
+      color: #120C24;
+      cursor: pointer;
+    }
+
+    .sort-dropdown button:hover { background: #F8F7FB; }
+
+    .sort-dropdown button:last-child {
+      border-top: 1px solid #F0EEF6;
+      color: #9CA3AF;
+      font-size: 12px;
+    }
+
+    .actions-cell { white-space: nowrap; }
+
+    .action-icons {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .icon-btn {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #4E465E;
+      transition: background 0.15s, color 0.15s;
+      padding: 4px;
+    }
+
+    .icon-btn:hover {
+      background: #F3F0FF;
+      color: #7A5CFF;
+    }
+
+    .icon-btn.danger {
+      color: #FF6B68;
+    }
+
+    .icon-btn.danger:hover {
+      background: #FFE8E7;
+      color: #FF6B68;
+    }
+
+    .icon-btn i {
+      width: 15px;
+      height: 15px;
+    }
+
+    .icon-label {
+      font-size: 9px;
+      font-family: Inter, sans-serif;
+      color: inherit;
+      margin-top: 1px;
+      line-height: 1;
+    }
+
+    .actions-cell .pending-bank-msg {
+      font-size: 12px;
+      color: #9CA3AF;
+      font-style: italic;
+    }
+    .toast-notification {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #120C24;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-family: Inter, sans-serif;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 9999;
+    }
+    .toast-notification.visible { opacity: 1; }
+    .confirm-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(18,12,36,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .confirm-dialog {
+      background: white;
+      border-radius: 12px;
+      padding: 28px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+    .confirm-dialog p {
+      font-size: 14px;
+      color: #120C24;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .confirm-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+    .btn-danger {
+      background: #FF6B68;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-family: Inter, sans-serif;
+      cursor: pointer;
+    }
+    .btn-danger:hover { background: #e85e5b; }
   </style>
 </head>
 <body>
@@ -550,530 +745,11 @@
 
 <nav class="prototype-nav" aria-label="Prototype screens">
   <span class="proto-label">Phase 3 prototype</span>
-  <a href="#screen-mandates" data-target="screen-mandates">Mandates</a>
-  <a href="#screen-sub001" data-target="screen-sub001">SCR-SUB-001: Pending Submission</a>
-  <a href="#screen-sub002" data-target="screen-sub002">SCR-SUB-002: Batch Log</a>
+  <a href="#screen-mandates" data-target="screen-mandates">Mandates Management</a>
   <a href="#screen-apr002" data-target="screen-apr002">SCR-APR-002: Mandate Detail</a>
 </nav>
 
-<article class="phase3-screen-anchor" id="screen-sub001" aria-label="Mandates Pending Submission">
-  <div class="app-shell">
-    <aside class="sidebar" aria-label="Main navigation">
-      <div class="sidebar-inner">
-        <div class="sidebar-brand">
-          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="logoGradP3s1" x1="4" y1="34" x2="30" y2="2" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#7A5CFF"/>
-                <stop offset="40%" stop-color="#9B6FFF"/>
-                <stop offset="70%" stop-color="#C96EE8"/>
-                <stop offset="100%" stop-color="#FF6B8A"/>
-              </linearGradient>
-              <linearGradient id="logoGrad2P3s1" x1="19" y1="34" x2="34" y2="4" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#B36CFF"/>
-                <stop offset="100%" stop-color="#FF5B6B"/>
-              </linearGradient>
-            </defs>
-            <path d="M4 34 C4 34 10 20 19 4 C19 4 14 14 11 22 C9 27 8 30 8 34 Z" fill="url(#logoGradP3s1)" opacity="0.95"/>
-            <path d="M34 34 C34 34 28 20 19 4 C19 4 24 14 27 22 C29 27 30 30 30 34 Z" fill="url(#logoGrad2P3s1)" opacity="0.9"/>
-            <path d="M11 23 Q19 19 27 23" stroke="url(#logoGradP3s1)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8"/>
-            <path d="M19 4 C19 4 20 8 21 12 C22 16 22 18 22 20 L19 26 L16 20 C16 18 16 16 17 12 C18 8 19 4 19 4 Z" fill="rgba(255,255,255,0.12)"/>
-          </svg>
-          <div class="brand-text">
-            <span class="brand-name">Autora</span>
-            <span class="brand-sub">DIRECT DEBIT PLATFORM</span>
-          </div>
-        </div>
-        <nav class="sidebar-nav" aria-label="Primary">
-          <a href="#" class="nav-item">
-            <i data-lucide="layout-dashboard"></i>
-            <span>Overview</span>
-          </a>
-          <a href="#" class="nav-item">
-            <i data-lucide="credit-card"></i>
-            <span>Payment Plans</span>
-          </a>
-          <a href="#screen-mandates" class="nav-item active">
-            <i data-lucide="file-text"></i>
-            <span>Mandates</span>
-          </a>
-          <a href="#" class="nav-item">
-            <i data-lucide="banknote"></i>
-            <span>Collections</span>
-          </a>
-          <a href="#" class="nav-item">
-            <i data-lucide="bar-chart-2"></i>
-            <span>Reports</span>
-          </a>
-          <a href="#" class="nav-item">
-            <i data-lucide="settings"></i>
-            <span>Settings</span>
-          </a>
-        </nav>
-        <div class="sidebar-atmosphere" aria-hidden="true"></div>
-        <div class="sidebar-footer">
-          <div class="merchant-card">
-            <div class="merchant-avatar">DM</div>
-            <div class="merchant-meta">
-              <div class="merchant-name">Demo Merchant LLC</div>
-              <div class="merchant-id">MID-UAE-10294</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <div class="main-wrap">
-      <header class="topbar phase3-topbar">
-        <div class="topbar-search-wrap">
-          <div class="search-field">
-            <i data-lucide="search" class="search-icon"></i>
-            <input type="search" placeholder="Search plans, mandates, and settings…" autocomplete="off" aria-label="Global search" />
-          </div>
-        </div>
-        <button type="button" class="btn btn-secondary"><i data-lucide="filter" style="width:16px;height:16px"></i> Filters</button>
-        <button type="button" class="btn btn-primary js-sub001-submit" disabled>Submit to Bank</button>
-        <div class="topbar-actions">
-          <button type="button" class="btn btn-ghost" aria-label="Notifications"><i data-lucide="bell" style="width:20px;height:20px"></i></button>
-          <div class="user-pill">
-            <div class="user-avatar">AK</div>
-            <span class="user-name">Amira K.</span>
-          </div>
-        </div>
-      </header>
-
-      <main class="content">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="#">Dashboard</a><span class="breadcrumb-sep">/</span>
-          <a href="#screen-mandates">Mandates</a><span class="breadcrumb-sep">/</span>
-          <span class="breadcrumb-current">Pending Submission</span>
-        </nav>
-
-        <div class="page-header">
-          <h1 class="page-title">Mandates Pending Submission</h1>
-          <p class="page-subtitle">Select mandates to submit to the bank for approval.</p>
-        </div>
-
-        <div class="table-toolbar">
-          <div class="toolbar-grow">
-            <i data-lucide="search" class="search-icon"></i>
-            <label class="visually-hidden" for="sub001-search">Search mandates</label>
-            <input type="search" id="sub001-search" placeholder="Search by Mandate Reference or Payer Name…" autocomplete="off" />
-          </div>
-          <div class="date-pair">
-            <div class="filter-field">
-              <label for="sub001-from">From</label>
-              <input type="date" id="sub001-from" />
-            </div>
-            <div class="filter-field">
-              <label for="sub001-to">To</label>
-              <input type="date" id="sub001-to" />
-            </div>
-          </div>
-          <div class="filter-field">
-            <label for="sub001-freq">Frequency</label>
-            <select id="sub001-freq" class="filter-select" aria-label="Frequency filter">
-              <option value="all" selected>All Frequencies</option>
-              <option>Daily</option>
-              <option>Weekly</option>
-              <option>Monthly</option>
-              <option>Quarterly</option>
-              <option>Half-Yearly</option>
-              <option>Annually</option>
-              <option>One-Time</option>
-            </select>
-          </div>
-          <button type="button" class="btn btn-primary js-sub001-submit" disabled>Submit to Bank</button>
-        </div>
-
-        <div class="card table-card">
-          <div class="table-scroll">
-            <table class="plans-table" aria-label="Mandates pending submission">
-              <colgroup>
-                <col style="width:44px" />
-                <col style="width:14%" />
-                <col style="width:18%" />
-                <col style="width:12%" />
-                <col style="width:12%" />
-                <col style="width:16%" />
-                <col style="width:12%" />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th scope="col"><input type="checkbox" id="sub001-master" aria-label="Select all mandates" /></th>
-                  <th scope="col">Mandate Reference</th>
-                  <th scope="col">Payer Name</th>
-                  <th scope="col">Frequency</th>
-                  <th scope="col">Amount (AED)</th>
-                  <th scope="col">Date Signed</th>
-                  <th scope="col">Status</th>
-                </tr>
-              </thead>
-              <tbody id="sub001-tbody">
-                <tr data-search="mnd-2026-00847 ahmed al mansouri">
-                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00847" /></td>
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00847</a></td>
-                  <td>Ahmed Al Mansouri</td>
-                  <td>Monthly</td>
-                  <td>500.00</td>
-                  <td>07/05/2026 09:32</td>
-                  <td><span class="badge badge-signed">SIGNED</span></td>
-                </tr>
-                <tr data-search="mnd-2026-00848 sara al zaabi">
-                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00848" /></td>
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00848</a></td>
-                  <td>Sara Al Zaabi</td>
-                  <td>Weekly</td>
-                  <td>120.00</td>
-                  <td>07/05/2026 10:15</td>
-                  <td><span class="badge badge-signed">SIGNED</span></td>
-                </tr>
-                <tr data-search="mnd-2026-00849 khalid hassan">
-                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00849" /></td>
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00849</a></td>
-                  <td>Khalid Hassan</td>
-                  <td>Quarterly</td>
-                  <td>900.00</td>
-                  <td>07/05/2026 11:00</td>
-                  <td><span class="badge badge-signed">SIGNED</span></td>
-                </tr>
-                <tr data-search="mnd-2026-00850 fatima al nouri">
-                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00850" /></td>
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00850</a></td>
-                  <td>Fatima Al Nouri</td>
-                  <td>Monthly</td>
-                  <td>Variable</td>
-                  <td>07/05/2026 11:45</td>
-                  <td><span class="badge badge-signed">SIGNED</span></td>
-                </tr>
-                <tr data-search="mnd-2026-00851 mohammed al rashidi">
-                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00851" /></td>
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00851</a></td>
-                  <td>Mohammed Al Rashidi</td>
-                  <td>Annually</td>
-                  <td>2000.00</td>
-                  <td>07/05/2026 13:20</td>
-                  <td><span class="badge badge-signed">SIGNED</span></td>
-                </tr>
-                <tr data-search="mnd-2026-00852 layla al hammadi">
-                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00852" /></td>
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00852</a></td>
-                  <td>Layla Al Hammadi</td>
-                  <td>Monthly</td>
-                  <td>350.00</td>
-                  <td>07/05/2026 14:05</td>
-                  <td><span class="badge badge-signed">SIGNED</span></td>
-                </tr>
-                <tr data-search="mnd-2026-00853 omar al bloushi">
-                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00853" /></td>
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00853</a></td>
-                  <td>Omar Al Bloushi</td>
-                  <td>Half-Yearly</td>
-                  <td>4500.00</td>
-                  <td>07/05/2026 14:50</td>
-                  <td><span class="badge badge-signed">SIGNED</span></td>
-                </tr>
-                <tr data-search="mnd-2026-00854 nour al mazrouei">
-                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00854" /></td>
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00854</a></td>
-                  <td>Nour Al Mazrouei</td>
-                  <td>Monthly</td>
-                  <td>200.00</td>
-                  <td>07/05/2026 15:30</td>
-                  <td><span class="badge badge-signed">SIGNED</span></td>
-                </tr>
-                <tr data-search="mnd-2026-00855 hamad al suwaidi">
-                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00855" /></td>
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00855</a></td>
-                  <td>Hamad Al Suwaidi</td>
-                  <td>Weekly</td>
-                  <td>80.00</td>
-                  <td>07/05/2026 16:00</td>
-                  <td><span class="badge badge-signed">SIGNED</span></td>
-                </tr>
-                <tr data-search="mnd-2026-00856 mariam al dhaheri">
-                  <td><input type="checkbox" class="sub001-cb" aria-label="Select MND-2026-00856" /></td>
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00856</a></td>
-                  <td>Mariam Al Dhaheri</td>
-                  <td>Monthly</td>
-                  <td>650.00</td>
-                  <td>07/05/2026 16:45</td>
-                  <td><span class="badge badge-signed">SIGNED</span></td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="empty-hint" id="sub001-empty" hidden>No mandates are currently pending submission.</div>
-          </div>
-        </div>
-      </main>
-    </div>
-  </div>
-</article>
-<article class="phase3-screen-anchor" id="screen-sub002" aria-label="Submission Batch Log">
-  <div class="app-shell">
-    <aside class="sidebar" aria-label="Main navigation">
-      <div class="sidebar-inner">
-        <div class="sidebar-brand">
-          <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="logoGradP3s2" x1="4" y1="34" x2="30" y2="2" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#7A5CFF"/>
-                <stop offset="40%" stop-color="#9B6FFF"/>
-                <stop offset="70%" stop-color="#C96EE8"/>
-                <stop offset="100%" stop-color="#FF6B8A"/>
-              </linearGradient>
-              <linearGradient id="logoGrad2P3s2" x1="19" y1="34" x2="34" y2="4" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#B36CFF"/>
-                <stop offset="100%" stop-color="#FF5B6B"/>
-              </linearGradient>
-            </defs>
-            <path d="M4 34 C4 34 10 20 19 4 C19 4 14 14 11 22 C9 27 8 30 8 34 Z" fill="url(#logoGradP3s2)" opacity="0.95"/>
-            <path d="M34 34 C34 34 28 20 19 4 C19 4 24 14 27 22 C29 27 30 30 30 34 Z" fill="url(#logoGrad2P3s2)" opacity="0.9"/>
-            <path d="M11 23 Q19 19 27 23" stroke="url(#logoGradP3s2)" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8"/>
-            <path d="M19 4 C19 4 20 8 21 12 C22 16 22 18 22 20 L19 26 L16 20 C16 18 16 16 17 12 C18 8 19 4 19 4 Z" fill="rgba(255,255,255,0.12)"/>
-          </svg>
-          <div class="brand-text">
-            <span class="brand-name">Autora</span>
-            <span class="brand-sub">DIRECT DEBIT PLATFORM</span>
-          </div>
-        </div>
-        <nav class="sidebar-nav" aria-label="Primary">
-          <a href="#" class="nav-item">
-            <i data-lucide="layout-dashboard"></i>
-            <span>Overview</span>
-          </a>
-          <a href="#" class="nav-item">
-            <i data-lucide="credit-card"></i>
-            <span>Payment Plans</span>
-          </a>
-          <a href="#screen-mandates" class="nav-item active">
-            <i data-lucide="file-text"></i>
-            <span>Mandates</span>
-          </a>
-          <a href="#" class="nav-item">
-            <i data-lucide="banknote"></i>
-            <span>Collections</span>
-          </a>
-          <a href="#" class="nav-item">
-            <i data-lucide="bar-chart-2"></i>
-            <span>Reports</span>
-          </a>
-          <a href="#" class="nav-item">
-            <i data-lucide="settings"></i>
-            <span>Settings</span>
-          </a>
-        </nav>
-        <div class="sidebar-atmosphere" aria-hidden="true"></div>
-        <div class="sidebar-footer">
-          <div class="merchant-card">
-            <div class="merchant-avatar">DM</div>
-            <div class="merchant-meta">
-              <div class="merchant-name">Demo Merchant LLC</div>
-              <div class="merchant-id">MID-UAE-10294</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <div class="main-wrap">
-      <header class="topbar phase3-topbar">
-        <div class="topbar-search-wrap">
-          <div class="search-field">
-            <i data-lucide="search" class="search-icon"></i>
-            <input type="search" placeholder="Search plans, mandates, and settings…" autocomplete="off" aria-label="Global search" />
-          </div>
-        </div>
-        <button type="button" class="btn btn-secondary"><i data-lucide="filter" style="width:16px;height:16px"></i> Filters</button>
-        <a class="btn btn-primary" href="#screen-sub001"><i data-lucide="plus" style="width:16px;height:16px"></i> New Submission</a>
-        <div class="topbar-actions">
-          <button type="button" class="btn btn-ghost" aria-label="Notifications"><i data-lucide="bell" style="width:20px;height:20px"></i></button>
-          <div class="user-pill">
-            <div class="user-avatar">AK</div>
-            <span class="user-name">Amira K.</span>
-          </div>
-        </div>
-      </header>
-
-      <main class="content">
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-          <a href="#">Dashboard</a><span class="breadcrumb-sep">/</span>
-          <a href="#screen-mandates">Mandates</a><span class="breadcrumb-sep">/</span>
-          <span class="breadcrumb-current">Batch Log</span>
-        </nav>
-
-        <div class="page-header">
-          <h1 class="page-title">Submission Batch Log</h1>
-          <p class="page-subtitle">All mandate batches submitted to the bank.</p>
-        </div>
-
-        <div class="table-toolbar">
-          <div class="toolbar-grow">
-            <i data-lucide="search" class="search-icon"></i>
-            <label class="visually-hidden" for="sub002-search">Search batches</label>
-            <input type="search" id="sub002-search" placeholder="Search by Batch Reference or Submitted By…" autocomplete="off" />
-          </div>
-          <div class="date-pair">
-            <div class="filter-field">
-              <label for="sub002-from">From</label>
-              <input type="date" id="sub002-from" />
-            </div>
-            <div class="filter-field">
-              <label for="sub002-to">To</label>
-              <input type="date" id="sub002-to" />
-            </div>
-          </div>
-          <div class="filter-field">
-            <label for="sub002-batch-status">Batch Status</label>
-            <select id="sub002-batch-status" class="filter-select" aria-label="Batch status filter">
-              <option value="all" selected>All</option>
-              <option value="submitted">Submitted</option>
-              <option value="processing">Processing</option>
-              <option value="completed">Completed</option>
-              <option value="partial">Partially Completed</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="card table-card">
-          <div class="table-scroll">
-            <table class="plans-table" aria-label="Submission batches">
-              <colgroup>
-                <col style="width:48px" />
-                <col style="width:18%" />
-                <col style="width:18%" />
-                <col style="width:18%" />
-                <col style="width:12%" />
-                <col style="width:18%" />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th scope="col"><span class="visually-hidden">Expand</span></th>
-                  <th scope="col">Batch Reference</th>
-                  <th scope="col">Submitted By</th>
-                  <th scope="col">Submitted At</th>
-                  <th scope="col">Mandates Count</th>
-                  <th scope="col">Batch Status</th>
-                </tr>
-              </thead>
-              <tbody id="sub002-tbody">
-                <tr class="batch-main-row" data-batch-id="BATCH-2026-00124" data-batch-status="completed" data-search="batch-2026-00124 rpa">
-                  <td><span class="chev" aria-hidden="true">▶</span></td>
-                  <td>BATCH-2026-00124</td>
-                  <td>RPA</td>
-                  <td>07/05/2026 10:00</td>
-                  <td>15</td>
-                  <td><span class="badge badge-completed">Completed</span></td>
-                </tr>
-                <tr class="batch-detail-row" hidden>
-                  <td colspan="6">
-                    <div class="batch-sub-wrap">
-                      <table class="batch-sub-table">
-                        <thead>
-                          <tr>
-                            <th>Mandate Reference</th>
-                            <th>Payer Name</th>
-                            <th>Frequency</th>
-                            <th>Amount (AED)</th>
-                            <th>Bank Response Status</th>
-                            <th>Response Received At</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td><a class="link-mandate" href="#screen-apr002">MND-2026-00837</a></td>
-                            <td>Ahmed Al Mansouri</td>
-                            <td>Monthly</td>
-                            <td>500.00</td>
-                            <td><span class="badge badge-approved">APPROVED</span></td>
-                            <td>08/05/2026</td>
-                          </tr>
-                          <tr>
-                            <td><a class="link-mandate" href="#screen-apr002">MND-2026-00838</a></td>
-                            <td>Sara Al Zaabi</td>
-                            <td>Weekly</td>
-                            <td>120.00</td>
-                            <td><span class="badge badge-approved">APPROVED</span></td>
-                            <td>08/05/2026</td>
-                          </tr>
-                          <tr>
-                            <td><a class="link-mandate" href="#screen-apr002">MND-2026-00839</a></td>
-                            <td>Khalid Hassan</td>
-                            <td>Quarterly</td>
-                            <td>900.00</td>
-                            <td><span class="badge badge-rejected">REJECTED</span></td>
-                            <td>08/05/2026</td>
-                          </tr>
-                          <tr>
-                            <td><a class="link-mandate" href="#screen-apr002">MND-2026-00840</a></td>
-                            <td>Fatima Al Nouri</td>
-                            <td>Monthly</td>
-                            <td>Variable</td>
-                            <td><span class="badge badge-approved">APPROVED</span></td>
-                            <td>08/05/2026</td>
-                          </tr>
-                          <tr>
-                            <td><a class="link-mandate" href="#screen-apr002">MND-2026-00841</a></td>
-                            <td>Omar Al Bloushi</td>
-                            <td>Half-Yearly</td>
-                            <td>4500.00</td>
-                            <td><span class="badge badge-approved">APPROVED</span></td>
-                            <td>08/05/2026</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </td>
-                </tr>
-
-                <tr class="batch-main-row" data-batch-id="BATCH-2026-00125" data-batch-status="partial" data-search="batch-2026-00125 mohammed al rashidi">
-                  <td><span class="chev" aria-hidden="true">▶</span></td>
-                  <td>BATCH-2026-00125</td>
-                  <td>Mohammed Al Rashidi</td>
-                  <td>07/05/2026 10:00</td>
-                  <td>3</td>
-                  <td><span class="badge badge-partial">Partially Completed</span></td>
-                </tr>
-                <tr class="batch-detail-row" hidden><td colspan="6"><div class="batch-sub-wrap"><p class="empty-hint" style="padding:12px">Expand prototype detail not loaded for this batch.</p></div></td></tr>
-
-                <tr class="batch-main-row" data-batch-id="BATCH-2026-00126" data-batch-status="completed" data-search="batch-2026-00126 rpa">
-                  <td><span class="chev" aria-hidden="true">▶</span></td>
-                  <td>BATCH-2026-00126</td>
-                  <td>RPA</td>
-                  <td>06/05/2026 14:30</td>
-                  <td>15</td>
-                  <td><span class="badge badge-completed">Completed</span></td>
-                </tr>
-                <tr class="batch-detail-row" hidden><td colspan="6"><div class="batch-sub-wrap"><p class="empty-hint" style="padding:12px">Expand prototype detail not loaded for this batch.</p></div></td></tr>
-
-                <tr class="batch-main-row" data-batch-id="BATCH-2026-00127" data-batch-status="completed" data-search="batch-2026-00127 rpa">
-                  <td><span class="chev" aria-hidden="true">▶</span></td>
-                  <td>BATCH-2026-00127</td>
-                  <td>RPA</td>
-                  <td>05/05/2026 09:15</td>
-                  <td>12</td>
-                  <td><span class="badge badge-completed">Completed</span></td>
-                </tr>
-                <tr class="batch-detail-row" hidden><td colspan="6"><div class="batch-sub-wrap"><p class="empty-hint" style="padding:12px">Expand prototype detail not loaded for this batch.</p></div></td></tr>
-
-                <tr class="batch-main-row" data-batch-id="BATCH-2026-00128" data-batch-status="processing" data-search="batch-2026-00128 sara al zaabi">
-                  <td><span class="chev" aria-hidden="true">▶</span></td>
-                  <td>BATCH-2026-00128</td>
-                  <td>Sara Al Zaabi (Ops)</td>
-                  <td>04/05/2026 11:00</td>
-                  <td>8</td>
-                  <td><span class="badge badge-processing">Processing</span></td>
-                </tr>
-                <tr class="batch-detail-row" hidden><td colspan="6"><div class="batch-sub-wrap"><p class="empty-hint" style="padding:12px">Expand prototype detail not loaded for this batch.</p></div></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </main>
-    </div>
-  </div>
-</article>
-<article class="phase3-screen-anchor" id="screen-mandates" aria-label="Mandates">
+<article class="phase3-screen-anchor" id="screen-mandates" aria-label="Mandates Management">
   <div class="app-shell">
     <aside class="sidebar" aria-label="Main navigation">
       <div class="sidebar-inner">
@@ -1112,7 +788,7 @@
           </a>
           <a href="#screen-mandates" class="nav-item active">
             <i data-lucide="file-text"></i>
-            <span>Mandates</span>
+            <span>Mandates Management</span>
           </a>
           <a href="#" class="nav-item">
             <i data-lucide="banknote"></i>
@@ -1149,7 +825,16 @@
           </div>
         </div>
         <button type="button" class="btn btn-secondary"><i data-lucide="filter" style="width:16px;height:16px"></i> Filters</button>
-        <button type="button" class="btn btn-secondary" id="apr001-export"><i data-lucide="download" style="width:16px;height:16px"></i> Export</button>
+        <div class="export-dropdown-wrapper">
+          <button type="button" class="btn btn-secondary" id="exportBtn" onclick="toggleExportMenu()">
+            <i data-lucide="download" style="width:16px;height:16px"></i> Export
+          </button>
+          <div class="export-menu" id="exportMenu" style="display:none;">
+            <button type="button" onclick="closeExportMenu()">Export as CSV</button>
+            <button type="button" onclick="closeExportMenu()">Export as Excel</button>
+            <button type="button" onclick="closeExportMenu()">Export as PDF</button>
+          </div>
+        </div>
         <div class="topbar-actions">
           <button type="button" class="btn btn-ghost" aria-label="Notifications"><i data-lucide="bell" style="width:20px;height:20px"></i></button>
           <div class="user-pill">
@@ -1162,35 +847,12 @@
       <main class="content">
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="#">Dashboard</a><span class="breadcrumb-sep">/</span>
-          <span class="breadcrumb-current">Mandates</span>
+          <span class="breadcrumb-current">Mandates Management</span>
         </nav>
 
         <div class="page-header">
-          <h1 class="page-title">Mandates</h1>
-          <p class="page-subtitle">View and manage all mandates.</p>
-        </div>
-
-        <div class="mandate-widgets">
-          <a href="#screen-sub001" class="widget-card">
-            <div class="widget-icon">
-              <i data-lucide="send"></i>
-            </div>
-            <div class="widget-content">
-              <div class="widget-title">Pending Submission</div>
-              <div class="widget-desc">View mandates ready to be submitted to the bank</div>
-            </div>
-            <i data-lucide="chevron-right" class="widget-arrow"></i>
-          </a>
-          <a href="#screen-sub002" class="widget-card">
-            <div class="widget-icon">
-              <i data-lucide="layers"></i>
-            </div>
-            <div class="widget-content">
-              <div class="widget-title">Submission Batch Log</div>
-              <div class="widget-desc">View all submitted batches and their statuses</div>
-            </div>
-            <i data-lucide="chevron-right" class="widget-arrow"></i>
-          </a>
+          <h1 class="page-title">Mandates Management</h1>
+          <p class="page-subtitle">View and manage all mandates on the Mandates Management screen.</p>
         </div>
 
         <div class="table-toolbar">
@@ -1205,8 +867,7 @@
               <option value="all">All Statuses</option>
               <option value="draft">DRAFT</option>
               <option value="pending_signature">PENDING_SIGNATURE</option>
-              <option value="signed">SIGNED</option>
-              <option value="submitted">SUBMITTED_TO_BANK</option>
+              <option value="pending_submission">PENDING_SUBMISSION</option>
               <option value="pending_bank">PENDING_BANK_APPROVAL</option>
               <option value="approved">APPROVED</option>
               <option value="rejected">REJECTED</option>
@@ -1241,182 +902,296 @@
 
         <div class="card table-card">
           <div class="table-scroll">
-            <table class="plans-table" aria-label="Mandates">
+            <table class="plans-table" aria-label="Mandates Management">
               <colgroup>
-                <col style="width:13%" />
-                <col style="width:15%" />
-                <col style="width:10%" />
+                <col style="width:14%" />
+                <col style="width:16%" />
                 <col style="width:11%" />
-                <col style="width:14%" />
-                <col style="width:14%" />
-                <col style="width:14%" />
+                <col style="width:11%" />
                 <col style="width:12%" />
+                <col style="width:16%" />
+                <col style="width:10%" />
               </colgroup>
               <thead>
                 <tr>
-                  <th scope="col">Mandate Reference</th>
-                  <th scope="col">Payer Name</th>
-                  <th scope="col">Frequency</th>
-                  <th scope="col">Amount (AED)</th>
-                  <th scope="col">Submitted At</th>
-                  <th scope="col">Batch Reference</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Response Date</th>
+                  <th scope="col">
+                    Mandate Reference
+                    <button type="button" class="sort-btn" data-col="0" data-type="text" onclick="toggleSortDropdown(this, event)">
+                      <span class="sort-arrow" data-col="0">↕</span>
+                    </button>
+                    <div class="sort-dropdown" id="sort-drop-0" style="display:none;">
+                      <button type="button" onclick="applySort(0,'text','asc');closeSortDropdowns()">Sort A → Z</button>
+                      <button type="button" onclick="applySort(0,'text','desc');closeSortDropdowns()">Sort Z → A</button>
+                      <button type="button" onclick="clearSort();closeSortDropdowns()">Clear Sort</button>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    Payer Name
+                    <button type="button" class="sort-btn" data-col="1" data-type="text" onclick="toggleSortDropdown(this, event)">
+                      <span class="sort-arrow" data-col="1">↕</span>
+                    </button>
+                    <div class="sort-dropdown" id="sort-drop-1" style="display:none;">
+                      <button type="button" onclick="applySort(1,'text','asc');closeSortDropdowns()">Sort A → Z</button>
+                      <button type="button" onclick="applySort(1,'text','desc');closeSortDropdowns()">Sort Z → A</button>
+                      <button type="button" onclick="clearSort();closeSortDropdowns()">Clear Sort</button>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    Frequency
+                    <button type="button" class="sort-btn" data-col="2" data-type="text" onclick="toggleSortDropdown(this, event)">
+                      <span class="sort-arrow" data-col="2">↕</span>
+                    </button>
+                    <div class="sort-dropdown" id="sort-drop-2" style="display:none;">
+                      <button type="button" onclick="applySort(2,'text','asc');closeSortDropdowns()">Sort A → Z</button>
+                      <button type="button" onclick="applySort(2,'text','desc');closeSortDropdowns()">Sort Z → A</button>
+                      <button type="button" onclick="clearSort();closeSortDropdowns()">Clear Sort</button>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    Amount (AED)
+                    <button type="button" class="sort-btn" data-col="3" data-type="number" onclick="toggleSortDropdown(this, event)">
+                      <span class="sort-arrow" data-col="3">↕</span>
+                    </button>
+                    <div class="sort-dropdown" id="sort-drop-3" style="display:none;">
+                      <button type="button" onclick="applySort(3,'number','asc');closeSortDropdowns()">Sort Low → High</button>
+                      <button type="button" onclick="applySort(3,'number','desc');closeSortDropdowns()">Sort High → Low</button>
+                      <button type="button" onclick="clearSort();closeSortDropdowns()">Clear Sort</button>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    Created At
+                    <button type="button" class="sort-btn" data-col="4" data-type="date" onclick="toggleSortDropdown(this, event)">
+                      <span class="sort-arrow" data-col="4">↕</span>
+                    </button>
+                    <div class="sort-dropdown" id="sort-drop-4" style="display:none;">
+                      <button type="button" onclick="applySort(4,'date','asc');closeSortDropdowns()">Sort Oldest First</button>
+                      <button type="button" onclick="applySort(4,'date','desc');closeSortDropdowns()">Sort Newest First</button>
+                      <button type="button" onclick="clearSort();closeSortDropdowns()">Clear Sort</button>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    Status
+                    <button type="button" class="sort-btn" data-col="5" data-type="text" onclick="toggleSortDropdown(this, event)">
+                      <span class="sort-arrow" data-col="5">↕</span>
+                    </button>
+                    <div class="sort-dropdown" id="sort-drop-5" style="display:none;">
+                      <button type="button" onclick="applySort(5,'text','asc');closeSortDropdowns()">Sort A → Z</button>
+                      <button type="button" onclick="applySort(5,'text','desc');closeSortDropdowns()">Sort Z → A</button>
+                      <button type="button" onclick="clearSort();closeSortDropdowns()">Clear Sort</button>
+                    </div>
+                  </th>
+                  <th scope="col">Actions</th>
                 </tr>
               </thead>
-              <tbody id="apr001-tbody">
+              <tbody id="mandateTableBody">
                 <tr data-search="mnd-2026-00830 nasser al fahim" data-status="draft">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00830</a></td>
                   <td>Nasser Al Fahim</td>
                   <td>Monthly</td>
                   <td>300.00</td>
-                  <td>—</td>
-                  <td>—</td>
+                  <td>28/04/2026</td>
                   <td><span class="badge badge-draft">DRAFT</span></td>
-                  <td>—</td>
+                                    <td class="actions-cell">
+                    <div class="action-icons">
+                      <button type="button" class="icon-btn" title="Complete" onclick="window.location.hash='screen-apr002'">
+                        <i data-lucide="pencil"></i>
+                      </button>
+                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </div>
+                  </td>
                 </tr>
                 <tr data-search="mnd-2026-00831 hessa al mansoori" data-status="pending_signature">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00831</a></td>
                   <td>Hessa Al Mansoori</td>
                   <td>Weekly</td>
                   <td>150.00</td>
-                  <td>—</td>
-                  <td>—</td>
+                  <td>29/04/2026</td>
                   <td><span class="badge badge-pending-sig">PENDING_SIGNATURE</span></td>
-                  <td>—</td>
+                                    <td class="actions-cell">
+                    <div class="action-icons">
+                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </div>
+                  </td>
                 </tr>
-                <tr data-search="mnd-2026-00832 yousef al ketbi" data-status="signed">
+                <tr data-search="mnd-2026-00832 yousef al ketbi" data-status="pending_submission">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00832</a></td>
                   <td>Yousef Al Ketbi</td>
                   <td>Monthly</td>
                   <td>750.00</td>
-                  <td>—</td>
-                  <td>—</td>
-                  <td><span class="badge badge-signed">SIGNED</span></td>
-                  <td>—</td>
+                  <td>01/05/2026</td>
+                  <td><span class="badge badge-pending-submission">PENDING_SUBMISSION</span></td>
+                                    <td class="actions-cell">
+                    <div class="action-icons">
+                      <button type="button" class="icon-btn" title="Submit to Bank" onclick="showToast('Mandate submitted to bank successfully.')">
+                        <i data-lucide="send"></i>
+                      </button>
+                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </div>
+                  </td>
                 </tr>
                 <tr data-search="mnd-2026-00833 reem al shamsi" data-status="cancel_pending">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00833</a></td>
                   <td>Reem Al Shamsi</td>
                   <td>Quarterly</td>
                   <td>1200.00</td>
-                  <td>—</td>
-                  <td>—</td>
+                  <td>30/04/2026</td>
                   <td><span class="badge badge-cancel-pending">CANCEL_PENDING</span></td>
-                  <td>—</td>
+                                    <td class="actions-cell">
+                    <div class="action-icons">
+                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </div>
+                  </td>
                 </tr>
                 <tr data-search="mnd-2026-00834 salem al mazrouei" data-status="cancelled">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00834</a></td>
                   <td>Salem Al Mazrouei</td>
                   <td>Annually</td>
                   <td>3000.00</td>
-                  <td>—</td>
-                  <td>—</td>
+                  <td>25/04/2026</td>
                   <td><span class="badge badge-cancelled">CANCELLED</span></td>
-                  <td>—</td>
+                                    <td class="actions-cell">
+                    <div class="action-icons">
+                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </div>
+                  </td>
                 </tr>
                 <tr data-search="mnd-2026-00837 ahmed al mansouri" data-status="approved">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00837</a></td>
                   <td>Ahmed Al Mansouri</td>
                   <td>Monthly</td>
                   <td>500.00</td>
-                  <td>07/05/2026 10:00</td>
-                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></td>
+                  <td>18/04/2026</td>
                   <td><span class="badge badge-approved">APPROVED</span></td>
-                  <td>08/05/2026</td>
+                                    <td class="actions-cell">
+                    <div class="action-icons">
+                      <button type="button" class="icon-btn" title="Cancel" onclick="showConfirmDialog('Are you sure you want to cancel this mandate? This action cannot be undone.', () => showToast('Mandate cancelled.'))">
+                        <i data-lucide="ban"></i>
+                      </button>
+                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </div>
+                  </td>
                 </tr>
                 <tr data-search="mnd-2026-00838 sara al zaabi" data-status="approved">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00838</a></td>
                   <td>Sara Al Zaabi</td>
                   <td>Weekly</td>
                   <td>120.00</td>
-                  <td>07/05/2026 10:00</td>
-                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></td>
+                  <td>19/04/2026</td>
                   <td><span class="badge badge-approved">APPROVED</span></td>
-                  <td>08/05/2026</td>
+                                    <td class="actions-cell">
+                    <div class="action-icons">
+                      <button type="button" class="icon-btn" title="Cancel" onclick="showConfirmDialog('Are you sure you want to cancel this mandate? This action cannot be undone.', () => showToast('Mandate cancelled.'))">
+                        <i data-lucide="ban"></i>
+                      </button>
+                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </div>
+                  </td>
                 </tr>
                 <tr data-search="mnd-2026-00839 khalid hassan" data-status="rejected">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00839</a></td>
                   <td>Khalid Hassan</td>
                   <td>Quarterly</td>
                   <td>900.00</td>
-                  <td>07/05/2026 10:00</td>
-                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></td>
+                  <td>17/04/2026</td>
                   <td><span class="badge badge-rejected">REJECTED</span></td>
-                  <td>08/05/2026</td>
+                                    <td class="actions-cell">
+                    <div class="action-icons">
+                      <button type="button" class="icon-btn" title="Reset Reminder Count" onclick="showToast('Reminder count has been reset successfully.')">
+                        <i data-lucide="refresh-cw"></i>
+                        <span class="icon-label">Reset</span>
+                      </button>
+                      <button type="button" class="icon-btn" title="Resubmit to Bank" onclick="showToast('Mandate has been resubmitted to the bank.')">
+                        <i data-lucide="send"></i>
+                        <span class="icon-label">Resubmit</span>
+                      </button>
+                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
+                        <i data-lucide="trash-2"></i>
+                        <span class="icon-label">Delete</span>
+                      </button>
+                    </div>
+                  </td>
                 </tr>
                 <tr data-search="mnd-2026-00840 fatima al nouri" data-status="pending_bank">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00840</a></td>
                   <td>Fatima Al Nouri</td>
                   <td>Monthly</td>
                   <td>Variable</td>
-                  <td>07/05/2026 10:00</td>
-                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></td>
+                  <td>20/04/2026</td>
                   <td><span class="badge badge-pending-bank">PENDING_BANK_APPROVAL</span></td>
-                  <td>—</td>
+                                    <td class="actions-cell">
+                    <span class="pending-bank-msg">—</span>
+                  </td>
                 </tr>
                 <tr data-search="mnd-2026-00841 omar al bloushi" data-status="approved">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00841</a></td>
                   <td>Omar Al Bloushi</td>
                   <td>Half-Yearly</td>
                   <td>4500.00</td>
-                  <td>07/05/2026 10:00</td>
-                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></td>
+                  <td>16/04/2026</td>
                   <td><span class="badge badge-approved">APPROVED</span></td>
-                  <td>08/05/2026</td>
-                </tr>
-                <tr data-search="mnd-2026-00842 nour al mazrouei" data-status="submitted">
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00842</a></td>
-                  <td>Nour Al Mazrouei</td>
-                  <td>Monthly</td>
-                  <td>200.00</td>
-                  <td>07/05/2026 10:00</td>
-                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00125</a></td>
-                  <td><span class="badge badge-submitted">SUBMITTED_TO_BANK</span></td>
-                  <td>—</td>
+                                    <td class="actions-cell">
+                    <div class="action-icons">
+                      <button type="button" class="icon-btn" title="Cancel" onclick="showConfirmDialog('Are you sure you want to cancel this mandate? This action cannot be undone.', () => showToast('Mandate cancelled.'))">
+                        <i data-lucide="ban"></i>
+                      </button>
+                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
+                        <i data-lucide="trash-2"></i>
+                      </button>
+                    </div>
+                  </td>
                 </tr>
                 <tr data-search="mnd-2026-00843 hamad al suwaidi" data-status="pending_bank">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00843</a></td>
                   <td>Hamad Al Suwaidi</td>
                   <td>Weekly</td>
                   <td>80.00</td>
-                  <td>07/05/2026 10:00</td>
-                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00125</a></td>
+                  <td>22/04/2026</td>
                   <td><span class="badge badge-pending-bank">PENDING_BANK_APPROVAL</span></td>
-                  <td>—</td>
-                </tr>
-                <tr data-search="mnd-2026-00844 mariam al dhaheri" data-status="approved">
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00844</a></td>
-                  <td>Mariam Al Dhaheri</td>
-                  <td>Monthly</td>
-                  <td>650.00</td>
-                  <td>06/05/2026 14:30</td>
-                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00126</a></td>
-                  <td><span class="badge badge-approved">APPROVED</span></td>
-                  <td>07/05/2026</td>
-                </tr>
-                <tr data-search="mnd-2026-00845 layla al hammadi" data-status="approved">
-                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00845</a></td>
-                  <td>Layla Al Hammadi</td>
-                  <td>Monthly</td>
-                  <td>350.00</td>
-                  <td>06/05/2026 14:30</td>
-                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00126</a></td>
-                  <td><span class="badge badge-approved">APPROVED</span></td>
-                  <td>07/05/2026</td>
+                                    <td class="actions-cell">
+                    <span class="pending-bank-msg">—</span>
+                  </td>
                 </tr>
                 <tr data-search="mnd-2026-00846 mohammed al rashidi" data-status="rejected">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00846</a></td>
                   <td>Mohammed Al Rashidi</td>
                   <td>Annually</td>
                   <td>2000.00</td>
-                  <td>05/05/2026 09:15</td>
-                  <td><a class="link-batch" href="#screen-sub002">BATCH-2026-00127</a></td>
+                  <td>15/04/2026</td>
                   <td><span class="badge badge-rejected">REJECTED</span></td>
-                  <td>06/05/2026</td>
+                                    <td class="actions-cell">
+                    <div class="action-icons">
+                      <button type="button" class="icon-btn" title="Reset Reminder Count" onclick="showToast('Reminder count has been reset successfully.')">
+                        <i data-lucide="refresh-cw"></i>
+                        <span class="icon-label">Reset</span>
+                      </button>
+                      <button type="button" class="icon-btn" title="Resubmit to Bank" onclick="showToast('Mandate has been resubmitted to the bank.')">
+                        <i data-lucide="send"></i>
+                        <span class="icon-label">Resubmit</span>
+                      </button>
+                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
+                        <i data-lucide="trash-2"></i>
+                        <span class="icon-label">Delete</span>
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
+
           </div>
         </div>
       </main>
@@ -1463,7 +1238,7 @@
           </a>
           <a href="#screen-mandates" class="nav-item active">
             <i data-lucide="file-text"></i>
-            <span>Mandates</span>
+            <span>Mandates Management</span>
           </a>
           <a href="#" class="nav-item">
             <i data-lucide="banknote"></i>
@@ -1512,7 +1287,7 @@
       <main class="content">
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="#">Dashboard</a><span class="breadcrumb-sep">/</span>
-          <a href="#screen-mandates">Mandates</a><span class="breadcrumb-sep">/</span>
+          <a href="#screen-mandates">Mandates Management</a><span class="breadcrumb-sep">/</span>
           <span class="breadcrumb-current">Mandate Detail</span>
         </nav>
 
@@ -1632,7 +1407,7 @@
               <h3 id="apr002-bank-h">Submission &amp; Bank Response</h3>
               <div class="kv-grid">
                 <div class="kv-item"><div class="k">Current Status</div><div class="v"><span class="badge badge-approved current-status-badge">APPROVED</span></div></div>
-                <div class="kv-item"><div class="k">Batch Reference</div><div class="v"><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></div></div>
+                <div class="kv-item"><div class="k">Batch Reference</div><div class="v">BATCH-2026-00124</div></div>
                 <div class="kv-item"><div class="k">Submitted At</div><div class="v">07/05/2026 10:00</div></div>
                 <div class="kv-item"><div class="k">Bank Response Code</div><div class="v">00</div></div>
                 <div class="kv-item" style="grid-column:1/-1"><div class="k">Bank Response Description</div><div class="v">Mandate approved successfully</div></div>
@@ -1655,10 +1430,10 @@
                   <span class="badge badge-submitted">SUBMITTED_TO_BANK</span><span class="timeline-meta"> · 07/05/2026 10:00 · Triggered by: RPA</span>
                 </div>
                 <div class="timeline-entry">
-                  <span class="badge badge-signed">SIGNED</span><span class="timeline-meta"> · 07/05/2026 09:32 · Triggered by: Payer</span>
+                  <span class="badge badge-pending-submission">PENDING_SUBMISSION</span><span class="timeline-meta"> · 07/05/2026 09:32 · Triggered by: Payer</span>
                 </div>
                 <div class="timeline-entry">
-                  <span class="badge badge-signed">PENDING_SIGNATURE</span><span class="timeline-meta"> · 07/05/2026 09:05 · Triggered by: Mohammed Al Rashidi (Ops)</span>
+                  <span class="badge badge-pending-sig">PENDING_SIGNATURE</span><span class="timeline-meta"> · 07/05/2026 09:05 · Triggered by: Mohammed Al Rashidi (Ops)</span>
                 </div>
                 <div class="timeline-entry">
                   <span class="badge badge-draft">DRAFT</span><span class="timeline-meta"> · 07/05/2026 09:00 · Triggered by: Mohammed Al Rashidi (Ops)</span>
@@ -1673,160 +1448,125 @@
   </div>
 </article>
 <script>
+let currentSort = { col: null, type: null, dir: null };
+
+function toggleSortDropdown(btn, event) {
+  event.stopPropagation();
+  const colIndex = btn.getAttribute('data-col');
+  const dropdown = document.getElementById('sort-drop-' + colIndex);
+  const isOpen = dropdown.style.display === 'block';
+  closeSortDropdowns();
+  if (!isOpen) dropdown.style.display = 'block';
+}
+
+function closeSortDropdowns() {
+  document.querySelectorAll('.sort-dropdown').forEach(d => d.style.display = 'none');
+}
+
+document.addEventListener('click', closeSortDropdowns);
+
+function applySort(colIndex, type, dir) {
+  currentSort = { col: colIndex, type, dir };
+  const tbody = document.getElementById('mandateTableBody');
+  if (!tbody) return;
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+
+  rows.sort((a, b) => {
+    const aVal = a.cells[colIndex].textContent.trim();
+    const bVal = b.cells[colIndex].textContent.trim();
+    if (type === 'date') {
+      const parse = d => { const [day, mon, yr] = d.split('/'); return new Date(yr, mon - 1, day); };
+      return dir === 'asc' ? parse(aVal) - parse(bVal) : parse(bVal) - parse(aVal);
+    }
+    if (type === 'number') {
+      return dir === 'asc' ? parseFloat(aVal) - parseFloat(bVal) : parseFloat(bVal) - parseFloat(aVal);
+    }
+    return dir === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+  });
+
+  rows.forEach(r => tbody.appendChild(r));
+
+  document.querySelectorAll('.sort-arrow').forEach(a => {
+    a.textContent = '↕';
+    a.style.color = '#9CA3AF';
+  });
+  const activeArrow = document.querySelector(`.sort-arrow[data-col="${colIndex}"]`);
+  if (activeArrow) {
+    activeArrow.textContent = dir === 'asc' ? '↑' : '↓';
+    activeArrow.style.color = '#7A5CFF';
+  }
+}
+
+function clearSort() {
+  currentSort = { col: null, type: null, dir: null };
+  document.querySelectorAll('.sort-arrow').forEach(a => {
+    a.textContent = '↕';
+    a.style.color = '#9CA3AF';
+  });
+  applySort(0, 'text', 'asc');
+  document.querySelectorAll('.sort-arrow').forEach(a => {
+    a.textContent = '↕';
+    a.style.color = '#9CA3AF';
+  });
+}
+
+function toggleExportMenu() {
+  const menu = document.getElementById('exportMenu');
+  if (menu) menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+}
+
+function closeExportMenu() {
+  const menu = document.getElementById('exportMenu');
+  if (menu) menu.style.display = 'none';
+}
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.className = 'toast-notification';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.classList.add('visible'), 10);
+  setTimeout(() => {
+    toast.classList.remove('visible');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+function showConfirmDialog(message, onConfirm) {
+  const overlay = document.createElement('div');
+  overlay.className = 'confirm-overlay';
+  overlay.innerHTML = `
+    <div class="confirm-dialog">
+      <p>${message}</p>
+      <div class="confirm-buttons">
+        <button type="button" class="btn btn-secondary" onclick="this.closest('.confirm-overlay').remove()">Cancel</button>
+        <button type="button" class="btn-danger" id="confirmBtn">Confirm</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.querySelector('#confirmBtn').addEventListener('click', () => {
+    onConfirm();
+    overlay.remove();
+  });
+}
+
+function deleteRow(btn) {
+  showConfirmDialog('Are you sure you want to delete this mandate? This action cannot be undone.', () => {
+    btn.closest('tr').remove();
+    showToast('Mandate deleted successfully.');
+  });
+}
+
+document.addEventListener('click', function(e) {
+  const exportBtn = document.getElementById('exportBtn');
+  if (exportBtn && !exportBtn.contains(e.target)) {
+    const exportMenu = document.getElementById('exportMenu');
+    if (exportMenu) exportMenu.style.display = 'none';
+  }
+});
+
 (function () {
-  function initSub001() {
-    var tbody = document.getElementById("sub001-tbody");
-    var master = document.getElementById("sub001-master");
-    var search = document.getElementById("sub001-search");
-    var empty = document.getElementById("sub001-empty");
-    var submits = document.querySelectorAll(".js-sub001-submit");
-    var toast = document.getElementById("phase3-toast");
-    if (!tbody || !master) return;
-
-    function getVisibleRows() {
-      return Array.prototype.slice.call(tbody.querySelectorAll("tr")).filter(function (tr) {
-        return tr.style.display !== "none";
-      });
-    }
-
-    function updateSubmitState() {
-      var n = tbody.querySelectorAll(".sub001-cb:checked").length;
-      submits.forEach(function (b) {
-        b.disabled = n === 0;
-      });
-    }
-
-    function updateMasterCheckbox() {
-      var vis = getVisibleRows();
-      var cbs = vis.map(function (tr) { return tr.querySelector(".sub001-cb"); }).filter(Boolean);
-      var checked = cbs.filter(function (c) { return c.checked; }).length;
-      master.checked = cbs.length > 0 && checked === cbs.length;
-      master.indeterminate = checked > 0 && checked < cbs.length;
-    }
-
-    function applySearch() {
-      var q = (search.value || "").toLowerCase().trim();
-      tbody.querySelectorAll("tr").forEach(function (tr) {
-        var hay = (tr.getAttribute("data-search") || "").toLowerCase();
-        tr.style.display = !q || hay.indexOf(q) !== -1 ? "" : "none";
-      });
-      var visibleCount = getVisibleRows().length;
-      empty.hidden = visibleCount > 0;
-      master.disabled = visibleCount === 0;
-      updateMasterCheckbox();
-      updateSubmitState();
-    }
-
-    master.addEventListener("change", function () {
-      getVisibleRows().forEach(function (tr) {
-        var cb = tr.querySelector(".sub001-cb");
-        if (cb) cb.checked = master.checked;
-      });
-      updateMasterCheckbox();
-      updateSubmitState();
-    });
-
-    tbody.addEventListener("change", function (e) {
-      if (e.target && e.target.classList.contains("sub001-cb")) {
-        updateMasterCheckbox();
-        updateSubmitState();
-      }
-    });
-
-    search.addEventListener("input", applySearch);
-
-    submits.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var checks = Array.prototype.slice.call(tbody.querySelectorAll(".sub001-cb:checked"));
-        var n = checks.length;
-        if (!n) return;
-        var msg =
-          n +
-          " mandate" +
-          (n === 1 ? "" : "s") +
-          " submitted successfully in 1 batch. " +
-          '<a href="#screen-sub002">View in Submission Log.</a>';
-        toast.innerHTML = msg;
-        toast.hidden = false;
-        requestAnimationFrame(function () { toast.classList.add("show"); });
-        setTimeout(function () {
-          checks.forEach(function (cb) {
-            var tr = cb.closest("tr");
-            if (tr) tr.remove();
-          });
-          toast.classList.remove("show");
-          setTimeout(function () { toast.hidden = true; }, 280);
-          master.checked = false;
-          master.indeterminate = false;
-          applySearch();
-          updateSubmitState();
-          if (window.lucide && lucide.createIcons) lucide.createIcons();
-        }, 3000);
-      });
-    });
-
-    applySearch();
-  }
-
-  function initSub002() {
-    var tbody = document.getElementById("sub002-tbody");
-    var search = document.getElementById("sub002-search");
-    var statusSel = document.getElementById("sub002-batch-status");
-    if (!tbody) return;
-
-    function setChevron(mainRow, open) {
-      var chev = mainRow.querySelector(".chev");
-      if (chev) chev.textContent = open ? "▼" : "▶";
-      mainRow.classList.toggle("is-open", open);
-    }
-
-    function closeAll() {
-      tbody.querySelectorAll(".batch-main-row").forEach(function (m) {
-        setChevron(m, false);
-        var d = m.nextElementSibling;
-        if (d && d.classList.contains("batch-detail-row")) d.hidden = true;
-      });
-    }
-
-    tbody.querySelectorAll(".batch-main-row").forEach(function (main) {
-      main.addEventListener("click", function (e) {
-        var detail = main.nextElementSibling;
-        if (!detail || !detail.classList.contains("batch-detail-row")) return;
-        var wasHidden = detail.hidden;
-        closeAll();
-        if (wasHidden) {
-          detail.hidden = false;
-          setChevron(main, true);
-        }
-      });
-    });
-
-    function applyFilters() {
-      var q = (search.value || "").toLowerCase().trim();
-      var st = statusSel.value;
-      tbody.querySelectorAll(".batch-main-row").forEach(function (main) {
-        var detail = main.nextElementSibling;
-        var hay = (main.getAttribute("data-search") || "").toLowerCase();
-        var okSearch = !q || hay.indexOf(q) !== -1;
-        var okStatus = st === "all" || main.getAttribute("data-batch-status") === st;
-        var show = okSearch && okStatus;
-        main.style.display = show ? "" : "none";
-        if (detail && detail.classList.contains("batch-detail-row")) {
-          detail.style.display = show ? "" : "none";
-          if (!show) {
-            detail.hidden = true;
-            setChevron(main, false);
-          }
-        }
-      });
-    }
-
-    search.addEventListener("input", applyFilters);
-    statusSel.addEventListener("change", applyFilters);
-  }
-
   function initApr001() {
-    var tbody = document.getElementById("apr001-tbody");
+    var tbody = document.getElementById("mandateTableBody");
     var search = document.getElementById("apr001-search");
     var statusSel = document.getElementById("apr001-status");
     if (!tbody) return;
@@ -1908,12 +1648,10 @@
   });
   window.addEventListener("load", function () {
     if (!window.location.hash) {
-      try { history.replaceState(null, "", "#screen-sub001"); } catch (e) {}
+      try { history.replaceState(null, "", "#screen-mandates"); } catch (e) {}
     }
     applyNavHash();
     scrollToHashScreen();
-    initSub001();
-    initSub002();
     initApr001();
     initApr002();
     if (window.lucide && lucide.createIcons) lucide.createIcons();
