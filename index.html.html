@@ -126,7 +126,7 @@
       margin-top: 1px;
       white-space: nowrap;
     }
-    .nav { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+    .sidebar-nav, .nav { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
     .nav-item {
       display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px;
       font-size: 14px; font-weight: 500; color: var(--white);
@@ -329,7 +329,152 @@
     .badge-processing { background: #FEF3C7; color: #B45309; }
     .badge-completed { background: #DCFCE7; color: #15803D; }
     .badge-partial { background: #FFF7ED; color: #C2410C; }
-    .badge-draft { background: #F4F4F5; color: #71717A; }
+    .badge-draft { background: #F3F4F6; color: #6B7280; }
+    .badge-pending-sig { background: #EDE9FE; color: #7C3AED; }
+    .badge-cancel-pending { background: #FEF3C7; color: #D97706; }
+    .badge-cancelled { background: #F3F4F6; color: #374151; }
+    .badge-sent { background: #EDE9FE; color: #7C3AED; }
+    .badge-received { background: #DCFCE7; color: #15803D; }
+    .badge-bounced { background: #FFE8E7; color: #FF6B68; }
+
+    .collection-history-section {
+      margin-top: 28px;
+      background: white;
+      border: 1px solid #EAE5F4;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .collection-history-section .section-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid #F0EEF6;
+    }
+
+    .collection-history-section .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #120C24;
+      margin: 0;
+    }
+
+    .collection-table-wrapper {
+      overflow-x: auto;
+    }
+
+    .collection-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .collection-table thead tr {
+      background: #F8F7FB;
+    }
+
+    .collection-table th {
+      padding: 10px 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #4E465E;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      text-align: left;
+      border-bottom: 1px solid #F0EEF6;
+    }
+
+    .collection-table td {
+      padding: 14px 20px;
+      font-size: 13px;
+      color: #120C24;
+      border-bottom: 1px solid #F0EEF6;
+    }
+
+    .collection-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .collection-table tbody tr:hover {
+      background: #F8F7FB;
+    }
+
+    .collection-expand-row {
+      padding: 12px 20px;
+      border-top: 1px solid #F0EEF6;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn-expand-collections {
+      background: none;
+      border: none;
+      color: #7A5CFF;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: Inter, sans-serif;
+      padding: 6px 16px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+
+    .btn-expand-collections:hover {
+      background: #F3F0FF;
+    }
+
+    .mandate-widgets {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .widget-card {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: white;
+      border: 1px solid #EAE5F4;
+      border-radius: 12px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .widget-card:hover {
+      border-color: #7A5CFF;
+      box-shadow: 0 4px 12px rgba(122,92,255,0.12);
+    }
+    .widget-icon {
+      width: 44px;
+      height: 44px;
+      background: #F3F0FF;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .widget-icon i {
+      width: 22px;
+      height: 22px;
+      color: #7A5CFF;
+    }
+    .widget-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #120C24;
+      margin-bottom: 3px;
+    }
+    .widget-desc {
+      font-size: 12px;
+      color: #4E465E;
+    }
+    .widget-arrow {
+      width: 18px;
+      height: 18px;
+      color: #9CA3AF;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
 
     /* Accordion batch table */
     .batch-main-row { cursor: pointer; }
@@ -405,9 +550,9 @@
 
 <nav class="prototype-nav" aria-label="Prototype screens">
   <span class="proto-label">Phase 3 prototype</span>
+  <a href="#screen-mandates" data-target="screen-mandates">Mandates</a>
   <a href="#screen-sub001" data-target="screen-sub001">SCR-SUB-001: Pending Submission</a>
   <a href="#screen-sub002" data-target="screen-sub002">SCR-SUB-002: Batch Log</a>
-  <a href="#screen-apr001" data-target="screen-apr001">SCR-APR-001: Approval Status</a>
   <a href="#screen-apr002" data-target="screen-apr002">SCR-APR-002: Mandate Detail</a>
 </nav>
 
@@ -439,14 +584,31 @@
             <span class="brand-sub">DIRECT DEBIT PLATFORM</span>
           </div>
         </div>
-        <nav class="nav" aria-label="Primary">
-          <a class="nav-item" href="#"><i data-lucide="layout-dashboard"></i>Overview</a>
-          <a class="nav-item" href="#"><i data-lucide="credit-card"></i>Payment Plans</a>
-          <a class="nav-item" href="#"><i data-lucide="file-text"></i>Mandates</a>
-          <a class="nav-item active" href="#screen-sub001"><i data-lucide="send"></i>Submissions</a>
-          <a class="nav-item" href="#"><i data-lucide="banknote"></i>Collections</a>
-          <a class="nav-item" href="#"><i data-lucide="bar-chart-2"></i>Reports</a>
-          <a class="nav-item" href="#"><i data-lucide="settings"></i>Settings</a>
+        <nav class="sidebar-nav" aria-label="Primary">
+          <a href="#" class="nav-item">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Overview</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="credit-card"></i>
+            <span>Payment Plans</span>
+          </a>
+          <a href="#screen-mandates" class="nav-item active">
+            <i data-lucide="file-text"></i>
+            <span>Mandates</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="banknote"></i>
+            <span>Collections</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="bar-chart-2"></i>
+            <span>Reports</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="settings"></i>
+            <span>Settings</span>
+          </a>
         </nav>
         <div class="sidebar-atmosphere" aria-hidden="true"></div>
         <div class="sidebar-footer">
@@ -483,7 +645,7 @@
       <main class="content">
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="#">Dashboard</a><span class="breadcrumb-sep">/</span>
-          <a href="#">Submissions</a><span class="breadcrumb-sep">/</span>
+          <a href="#screen-mandates">Mandates</a><span class="breadcrumb-sep">/</span>
           <span class="breadcrumb-current">Pending Submission</span>
         </nav>
 
@@ -675,14 +837,31 @@
             <span class="brand-sub">DIRECT DEBIT PLATFORM</span>
           </div>
         </div>
-        <nav class="nav" aria-label="Primary">
-          <a class="nav-item" href="#"><i data-lucide="layout-dashboard"></i>Overview</a>
-          <a class="nav-item" href="#"><i data-lucide="credit-card"></i>Payment Plans</a>
-          <a class="nav-item" href="#"><i data-lucide="file-text"></i>Mandates</a>
-          <a class="nav-item active" href="#screen-sub001"><i data-lucide="send"></i>Submissions</a>
-          <a class="nav-item" href="#"><i data-lucide="banknote"></i>Collections</a>
-          <a class="nav-item" href="#"><i data-lucide="bar-chart-2"></i>Reports</a>
-          <a class="nav-item" href="#"><i data-lucide="settings"></i>Settings</a>
+        <nav class="sidebar-nav" aria-label="Primary">
+          <a href="#" class="nav-item">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Overview</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="credit-card"></i>
+            <span>Payment Plans</span>
+          </a>
+          <a href="#screen-mandates" class="nav-item active">
+            <i data-lucide="file-text"></i>
+            <span>Mandates</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="banknote"></i>
+            <span>Collections</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="bar-chart-2"></i>
+            <span>Reports</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="settings"></i>
+            <span>Settings</span>
+          </a>
         </nav>
         <div class="sidebar-atmosphere" aria-hidden="true"></div>
         <div class="sidebar-footer">
@@ -719,7 +898,7 @@
       <main class="content">
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="#">Dashboard</a><span class="breadcrumb-sep">/</span>
-          <a href="#">Submissions</a><span class="breadcrumb-sep">/</span>
+          <a href="#screen-mandates">Mandates</a><span class="breadcrumb-sep">/</span>
           <span class="breadcrumb-current">Batch Log</span>
         </nav>
 
@@ -894,7 +1073,7 @@
     </div>
   </div>
 </article>
-<article class="phase3-screen-anchor" id="screen-apr001" aria-label="Bank Approval Status">
+<article class="phase3-screen-anchor" id="screen-mandates" aria-label="Mandates">
   <div class="app-shell">
     <aside class="sidebar" aria-label="Main navigation">
       <div class="sidebar-inner">
@@ -922,14 +1101,31 @@
             <span class="brand-sub">DIRECT DEBIT PLATFORM</span>
           </div>
         </div>
-        <nav class="nav" aria-label="Primary">
-          <a class="nav-item" href="#"><i data-lucide="layout-dashboard"></i>Overview</a>
-          <a class="nav-item" href="#"><i data-lucide="credit-card"></i>Payment Plans</a>
-          <a class="nav-item" href="#"><i data-lucide="file-text"></i>Mandates</a>
-          <a class="nav-item active" href="#screen-sub001"><i data-lucide="send"></i>Submissions</a>
-          <a class="nav-item" href="#"><i data-lucide="banknote"></i>Collections</a>
-          <a class="nav-item" href="#"><i data-lucide="bar-chart-2"></i>Reports</a>
-          <a class="nav-item" href="#"><i data-lucide="settings"></i>Settings</a>
+        <nav class="sidebar-nav" aria-label="Primary">
+          <a href="#" class="nav-item">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Overview</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="credit-card"></i>
+            <span>Payment Plans</span>
+          </a>
+          <a href="#screen-mandates" class="nav-item active">
+            <i data-lucide="file-text"></i>
+            <span>Mandates</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="banknote"></i>
+            <span>Collections</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="bar-chart-2"></i>
+            <span>Reports</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="settings"></i>
+            <span>Settings</span>
+          </a>
         </nav>
         <div class="sidebar-atmosphere" aria-hidden="true"></div>
         <div class="sidebar-footer">
@@ -966,13 +1162,35 @@
       <main class="content">
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="#">Dashboard</a><span class="breadcrumb-sep">/</span>
-          <a href="#">Submissions</a><span class="breadcrumb-sep">/</span>
-          <span class="breadcrumb-current">Approval Status</span>
+          <span class="breadcrumb-current">Mandates</span>
         </nav>
 
         <div class="page-header">
-          <h1 class="page-title">Bank Approval Status</h1>
-          <p class="page-subtitle">Monitor mandate responses from the bank.</p>
+          <h1 class="page-title">Mandates</h1>
+          <p class="page-subtitle">View and manage all mandates.</p>
+        </div>
+
+        <div class="mandate-widgets">
+          <a href="#screen-sub001" class="widget-card">
+            <div class="widget-icon">
+              <i data-lucide="send"></i>
+            </div>
+            <div class="widget-content">
+              <div class="widget-title">Pending Submission</div>
+              <div class="widget-desc">View mandates ready to be submitted to the bank</div>
+            </div>
+            <i data-lucide="chevron-right" class="widget-arrow"></i>
+          </a>
+          <a href="#screen-sub002" class="widget-card">
+            <div class="widget-icon">
+              <i data-lucide="layers"></i>
+            </div>
+            <div class="widget-content">
+              <div class="widget-title">Submission Batch Log</div>
+              <div class="widget-desc">View all submitted batches and their statuses</div>
+            </div>
+            <i data-lucide="chevron-right" class="widget-arrow"></i>
+          </a>
         </div>
 
         <div class="table-toolbar">
@@ -982,13 +1200,18 @@
             <input type="search" id="apr001-search" placeholder="Search by Mandate Reference or Payer Name…" autocomplete="off" />
           </div>
           <div class="filter-field">
-            <label for="apr001-status">Bank Response Status</label>
-            <select id="apr001-status" class="filter-select" aria-label="Bank response status">
-              <option value="all" selected>All</option>
-              <option value="SUBMITTED_TO_BANK">SUBMITTED_TO_BANK</option>
-              <option value="PENDING_BANK_APPROVAL">PENDING_BANK_APPROVAL</option>
-              <option value="APPROVED">APPROVED</option>
-              <option value="REJECTED">REJECTED</option>
+            <label for="apr001-status">Status</label>
+            <select id="apr001-status" class="filter-select" aria-label="Status filter">
+              <option value="all">All Statuses</option>
+              <option value="draft">DRAFT</option>
+              <option value="pending_signature">PENDING_SIGNATURE</option>
+              <option value="signed">SIGNED</option>
+              <option value="submitted">SUBMITTED_TO_BANK</option>
+              <option value="pending_bank">PENDING_BANK_APPROVAL</option>
+              <option value="approved">APPROVED</option>
+              <option value="rejected">REJECTED</option>
+              <option value="cancel_pending">CANCEL_PENDING</option>
+              <option value="cancelled">CANCELLED</option>
             </select>
           </div>
           <div class="date-pair">
@@ -1018,7 +1241,7 @@
 
         <div class="card table-card">
           <div class="table-scroll">
-            <table class="plans-table" aria-label="Bank approval status">
+            <table class="plans-table" aria-label="Mandates">
               <colgroup>
                 <col style="width:13%" />
                 <col style="width:15%" />
@@ -1037,12 +1260,62 @@
                   <th scope="col">Amount (AED)</th>
                   <th scope="col">Submitted At</th>
                   <th scope="col">Batch Reference</th>
-                  <th scope="col">Bank Response Status</th>
+                  <th scope="col">Status</th>
                   <th scope="col">Response Date</th>
                 </tr>
               </thead>
               <tbody id="apr001-tbody">
-                <tr data-search="mnd-2026-00837 ahmed al mansouri" data-status="APPROVED">
+                <tr data-search="mnd-2026-00830 nasser al fahim" data-status="draft">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00830</a></td>
+                  <td>Nasser Al Fahim</td>
+                  <td>Monthly</td>
+                  <td>300.00</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td><span class="badge badge-draft">DRAFT</span></td>
+                  <td>—</td>
+                </tr>
+                <tr data-search="mnd-2026-00831 hessa al mansoori" data-status="pending_signature">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00831</a></td>
+                  <td>Hessa Al Mansoori</td>
+                  <td>Weekly</td>
+                  <td>150.00</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td><span class="badge badge-pending-sig">PENDING_SIGNATURE</span></td>
+                  <td>—</td>
+                </tr>
+                <tr data-search="mnd-2026-00832 yousef al ketbi" data-status="signed">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00832</a></td>
+                  <td>Yousef Al Ketbi</td>
+                  <td>Monthly</td>
+                  <td>750.00</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td><span class="badge badge-signed">SIGNED</span></td>
+                  <td>—</td>
+                </tr>
+                <tr data-search="mnd-2026-00833 reem al shamsi" data-status="cancel_pending">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00833</a></td>
+                  <td>Reem Al Shamsi</td>
+                  <td>Quarterly</td>
+                  <td>1200.00</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td><span class="badge badge-cancel-pending">CANCEL_PENDING</span></td>
+                  <td>—</td>
+                </tr>
+                <tr data-search="mnd-2026-00834 salem al mazrouei" data-status="cancelled">
+                  <td><a class="link-mandate" href="#screen-apr002">MND-2026-00834</a></td>
+                  <td>Salem Al Mazrouei</td>
+                  <td>Annually</td>
+                  <td>3000.00</td>
+                  <td>—</td>
+                  <td>—</td>
+                  <td><span class="badge badge-cancelled">CANCELLED</span></td>
+                  <td>—</td>
+                </tr>
+                <tr data-search="mnd-2026-00837 ahmed al mansouri" data-status="approved">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00837</a></td>
                   <td>Ahmed Al Mansouri</td>
                   <td>Monthly</td>
@@ -1052,7 +1325,7 @@
                   <td><span class="badge badge-approved">APPROVED</span></td>
                   <td>08/05/2026</td>
                 </tr>
-                <tr data-search="mnd-2026-00838 sara al zaabi" data-status="APPROVED">
+                <tr data-search="mnd-2026-00838 sara al zaabi" data-status="approved">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00838</a></td>
                   <td>Sara Al Zaabi</td>
                   <td>Weekly</td>
@@ -1062,7 +1335,7 @@
                   <td><span class="badge badge-approved">APPROVED</span></td>
                   <td>08/05/2026</td>
                 </tr>
-                <tr data-search="mnd-2026-00839 khalid hassan" data-status="REJECTED">
+                <tr data-search="mnd-2026-00839 khalid hassan" data-status="rejected">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00839</a></td>
                   <td>Khalid Hassan</td>
                   <td>Quarterly</td>
@@ -1072,7 +1345,7 @@
                   <td><span class="badge badge-rejected">REJECTED</span></td>
                   <td>08/05/2026</td>
                 </tr>
-                <tr data-search="mnd-2026-00840 fatima al nouri" data-status="PENDING_BANK_APPROVAL">
+                <tr data-search="mnd-2026-00840 fatima al nouri" data-status="pending_bank">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00840</a></td>
                   <td>Fatima Al Nouri</td>
                   <td>Monthly</td>
@@ -1082,7 +1355,7 @@
                   <td><span class="badge badge-pending-bank">PENDING_BANK_APPROVAL</span></td>
                   <td>—</td>
                 </tr>
-                <tr data-search="mnd-2026-00841 omar al bloushi" data-status="APPROVED">
+                <tr data-search="mnd-2026-00841 omar al bloushi" data-status="approved">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00841</a></td>
                   <td>Omar Al Bloushi</td>
                   <td>Half-Yearly</td>
@@ -1092,7 +1365,7 @@
                   <td><span class="badge badge-approved">APPROVED</span></td>
                   <td>08/05/2026</td>
                 </tr>
-                <tr data-search="mnd-2026-00842 nour al mazrouei" data-status="SUBMITTED_TO_BANK">
+                <tr data-search="mnd-2026-00842 nour al mazrouei" data-status="submitted">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00842</a></td>
                   <td>Nour Al Mazrouei</td>
                   <td>Monthly</td>
@@ -1102,7 +1375,7 @@
                   <td><span class="badge badge-submitted">SUBMITTED_TO_BANK</span></td>
                   <td>—</td>
                 </tr>
-                <tr data-search="mnd-2026-00843 hamad al suwaidi" data-status="PENDING_BANK_APPROVAL">
+                <tr data-search="mnd-2026-00843 hamad al suwaidi" data-status="pending_bank">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00843</a></td>
                   <td>Hamad Al Suwaidi</td>
                   <td>Weekly</td>
@@ -1112,7 +1385,7 @@
                   <td><span class="badge badge-pending-bank">PENDING_BANK_APPROVAL</span></td>
                   <td>—</td>
                 </tr>
-                <tr data-search="mnd-2026-00844 mariam al dhaheri" data-status="APPROVED">
+                <tr data-search="mnd-2026-00844 mariam al dhaheri" data-status="approved">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00844</a></td>
                   <td>Mariam Al Dhaheri</td>
                   <td>Monthly</td>
@@ -1122,7 +1395,7 @@
                   <td><span class="badge badge-approved">APPROVED</span></td>
                   <td>07/05/2026</td>
                 </tr>
-                <tr data-search="mnd-2026-00845 layla al hammadi" data-status="APPROVED">
+                <tr data-search="mnd-2026-00845 layla al hammadi" data-status="approved">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00845</a></td>
                   <td>Layla Al Hammadi</td>
                   <td>Monthly</td>
@@ -1132,7 +1405,7 @@
                   <td><span class="badge badge-approved">APPROVED</span></td>
                   <td>07/05/2026</td>
                 </tr>
-                <tr data-search="mnd-2026-00846 mohammed al rashidi" data-status="REJECTED">
+                <tr data-search="mnd-2026-00846 mohammed al rashidi" data-status="rejected">
                   <td><a class="link-mandate" href="#screen-apr002">MND-2026-00846</a></td>
                   <td>Mohammed Al Rashidi</td>
                   <td>Annually</td>
@@ -1179,14 +1452,31 @@
             <span class="brand-sub">DIRECT DEBIT PLATFORM</span>
           </div>
         </div>
-        <nav class="nav" aria-label="Primary">
-          <a class="nav-item" href="#"><i data-lucide="layout-dashboard"></i>Overview</a>
-          <a class="nav-item" href="#"><i data-lucide="credit-card"></i>Payment Plans</a>
-          <a class="nav-item" href="#"><i data-lucide="file-text"></i>Mandates</a>
-          <a class="nav-item active" href="#screen-sub001"><i data-lucide="send"></i>Submissions</a>
-          <a class="nav-item" href="#"><i data-lucide="banknote"></i>Collections</a>
-          <a class="nav-item" href="#"><i data-lucide="bar-chart-2"></i>Reports</a>
-          <a class="nav-item" href="#"><i data-lucide="settings"></i>Settings</a>
+        <nav class="sidebar-nav" aria-label="Primary">
+          <a href="#" class="nav-item">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Overview</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="credit-card"></i>
+            <span>Payment Plans</span>
+          </a>
+          <a href="#screen-mandates" class="nav-item active">
+            <i data-lucide="file-text"></i>
+            <span>Mandates</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="banknote"></i>
+            <span>Collections</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="bar-chart-2"></i>
+            <span>Reports</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="settings"></i>
+            <span>Settings</span>
+          </a>
         </nav>
         <div class="sidebar-atmosphere" aria-hidden="true"></div>
         <div class="sidebar-footer">
@@ -1222,8 +1512,7 @@
       <main class="content">
         <nav class="breadcrumb" aria-label="Breadcrumb">
           <a href="#">Dashboard</a><span class="breadcrumb-sep">/</span>
-          <a href="#">Submissions</a><span class="breadcrumb-sep">/</span>
-          <a href="#screen-apr001">Approval Status</a><span class="breadcrumb-sep">/</span>
+          <a href="#screen-mandates">Mandates</a><span class="breadcrumb-sep">/</span>
           <span class="breadcrumb-current">Mandate Detail</span>
         </nav>
 
@@ -1258,10 +1547,91 @@
               </div>
             </section>
 
+            <div class="collection-history-section" id="collectionHistory">
+              <div class="section-header">
+                <h3 class="section-title">Collection History</h3>
+              </div>
+
+              <div class="collection-table-wrapper" id="collectionTableWrapper">
+                <table class="collection-table">
+                  <thead>
+                    <tr>
+                      <th>Collection Date</th>
+                      <th>Amount (AED)</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="collectionTableBody">
+                    <tr>
+                      <td>05/09/2026</td>
+                      <td>500.00</td>
+                      <td><span class="badge badge-received">RECEIVED</span></td>
+                    </tr>
+                    <tr>
+                      <td>05/10/2026</td>
+                      <td>500.00</td>
+                      <td><span class="badge badge-received">RECEIVED</span></td>
+                    </tr>
+                    <tr>
+                      <td>05/11/2026</td>
+                      <td>500.00</td>
+                      <td><span class="badge badge-bounced">BOUNCED</span></td>
+                    </tr>
+                    <tr>
+                      <td>05/12/2026</td>
+                      <td>500.00</td>
+                      <td><span class="badge badge-received">RECEIVED</span></td>
+                    </tr>
+                    <tr>
+                      <td>05/01/2027</td>
+                      <td>500.00</td>
+                      <td><span class="badge badge-sent">SENT_FOR_COLLECTION</span></td>
+                    </tr>
+                    <tr>
+                      <td>05/02/2027</td>
+                      <td>500.00</td>
+                      <td><span class="badge badge-received">RECEIVED</span></td>
+                    </tr>
+                    <tr>
+                      <td>05/03/2027</td>
+                      <td>500.00</td>
+                      <td><span class="badge badge-received">RECEIVED</span></td>
+                    </tr>
+                    <tr>
+                      <td>05/04/2027</td>
+                      <td>500.00</td>
+                      <td><span class="badge badge-bounced">BOUNCED</span></td>
+                    </tr>
+                    <tr>
+                      <td>05/05/2027</td>
+                      <td>500.00</td>
+                      <td><span class="badge badge-received">RECEIVED</span></td>
+                    </tr>
+                    <tr>
+                      <td>05/06/2027</td>
+                      <td>500.00</td>
+                      <td><span class="badge badge-sent">SENT_FOR_COLLECTION</span></td>
+                    </tr>
+                    <tr>
+                      <td>05/07/2027</td>
+                      <td>500.00</td>
+                      <td><span class="badge badge-received">RECEIVED</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="collection-expand-row">
+                <button type="button" class="btn-expand-collections" id="expandCollectionsBtn" onclick="toggleCollections()">
+                  Show all collections ▾
+                </button>
+              </div>
+            </div>
+
             <section class="info-card" aria-labelledby="apr002-bank-h">
               <h3 id="apr002-bank-h">Submission &amp; Bank Response</h3>
               <div class="kv-grid">
-                <div class="kv-item"><div class="k">Current Status</div><div class="v"><span class="badge badge-approved">APPROVED</span></div></div>
+                <div class="kv-item"><div class="k">Current Status</div><div class="v"><span class="badge badge-approved current-status-badge">APPROVED</span></div></div>
                 <div class="kv-item"><div class="k">Batch Reference</div><div class="v"><a class="link-batch" href="#screen-sub002">BATCH-2026-00124</a></div></div>
                 <div class="kv-item"><div class="k">Submitted At</div><div class="v">07/05/2026 10:00</div></div>
                 <div class="kv-item"><div class="k">Bank Response Code</div><div class="v">00</div></div>
@@ -1297,6 +1667,7 @@
             </div>
           </aside>
         </div>
+
       </main>
     </div>
   </div>
@@ -1476,6 +1847,46 @@
     statusSel.addEventListener("change", apply);
   }
 
+  function initApr002() {
+    document.querySelectorAll("#collectionTableBody tr").forEach(function (row, index) {
+      if (index >= 5) row.style.display = "none";
+    });
+    updateCollectionHistoryVisibility();
+  }
+
+  var collectionsExpanded = false;
+
+  function updateCollectionHistoryVisibility() {
+    var statusBadge = document.querySelector("#screen-apr002 .current-status-badge");
+    var section = document.getElementById("collectionHistory");
+    if (!section) return;
+
+    var visibleStatuses = ["APPROVED", "CANCEL_PENDING", "CANCELLED"];
+    var currentStatus = statusBadge ? statusBadge.textContent.trim() : "";
+
+    section.style.display = visibleStatuses.indexOf(currentStatus) !== -1 ? "block" : "none";
+  }
+
+  window.toggleCollections = function () {
+    collectionsExpanded = !collectionsExpanded;
+    var rows = document.querySelectorAll("#collectionTableBody tr");
+    var btn = document.getElementById("expandCollectionsBtn");
+
+    rows.forEach(function (row, index) {
+      if (index >= 5) {
+        row.style.display = collectionsExpanded ? "" : "none";
+      }
+    });
+
+    if (btn) {
+      btn.textContent = collectionsExpanded
+        ? "Show less ▴"
+        : "Show all collections ▾";
+    }
+  };
+
+  window.updateCollectionHistoryVisibility = updateCollectionHistoryVisibility;
+
   function applyNavHash() {
     var h = (window.location.hash || "").replace(/^#/, "");
     document.querySelectorAll(".prototype-nav a[data-target]").forEach(function (a) {
@@ -1493,6 +1904,7 @@
   window.addEventListener("hashchange", function () {
     applyNavHash();
     scrollToHashScreen();
+    updateCollectionHistoryVisibility();
   });
   window.addEventListener("load", function () {
     if (!window.location.hash) {
@@ -1503,6 +1915,7 @@
     initSub001();
     initSub002();
     initApr001();
+    initApr002();
     if (window.lucide && lucide.createIcons) lucide.createIcons();
   });
 })();
