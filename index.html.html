@@ -34,10 +34,16 @@
       margin: 0;
       min-width: var(--min-page-width);
       font-family: "Inter", system-ui, sans-serif;
-      background: #F6EFE8;
+      background: #EAE5F4;
       color: var(--near-black);
       font-size: 14px;
       line-height: 1.45;
+    }
+    .main-content,
+    .app-shell,
+    .page-wrapper,
+    .content-area {
+      background: #EAE5F4;
     }
     a { color: inherit; text-decoration: none; }
     button { font-family: inherit; cursor: pointer; }
@@ -165,13 +171,13 @@
     .main-wrap {
       flex: 1; display: flex; flex-direction: column; min-width: 0;
       max-width: calc(100vw - var(--sidebar-width));
-      background-color: #F6EFE8 !important;
+      background-color: #EAE5F4 !important;
     }
 
     /* Top bar — search visually centered, filters + CTA + actions right */
     .phase3-topbar {
       height: var(--topbar-height);
-      background: #ffffff;
+      background: #EAE5F4;
       border-bottom: 1px solid var(--mist-lavender);
       display: flex; align-items: center; gap: 12px;
       padding: 0 24px; flex-shrink: 0; min-width: 0;
@@ -229,6 +235,7 @@
     .content {
       padding: 20px 20px 40px; flex: 1; min-width: 0;
       display: flex; flex-direction: column;
+      background: #EAE5F4;
     }
     .breadcrumb {
       font-size: 12px; font-weight: 500; color: var(--graphite-plum); margin-bottom: 8px;
@@ -277,9 +284,14 @@
     .table-toolbar .btn-primary { height: 36px; padding: 0 14px; margin-left: auto; }
 
     .card {
-      background: var(--white); border: 1px solid var(--mist-lavender); border-radius: 12px;
-      box-shadow: 0 1px 3px var(--shadow-card);
+      background: #EAE5F4; border: 1px solid var(--mist-lavender); border-radius: 12px;
+      box-shadow: none;
       flex: 1; min-height: 0; display: flex; flex-direction: column;
+    }
+    .table-card,
+    .screen-card {
+      background: #EAE5F4;
+      box-shadow: none;
     }
     .table-card { padding: 0; overflow: hidden; }
     .table-scroll {
@@ -308,6 +320,10 @@
       padding: 10px 8px; font-size: 12px; color: var(--near-black);
       border-bottom: 1px solid #F0EEF6; vertical-align: middle;
       overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+      background: #FFFFFF;
+    }
+    .plans-table tbody td.actions-cell {
+      overflow: visible;
     }
     .plans-table tbody tr:hover td { background: #F8F7FB; }
     .link-mandate, .link-batch {
@@ -339,7 +355,7 @@
 
     .collection-history-section {
       margin-top: 28px;
-      background: white;
+      background: #EAE5F4;
       border: 1px solid #EAE5F4;
       border-radius: 12px;
       overflow: hidden;
@@ -430,7 +446,7 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      background: white;
+      background: #EAE5F4;
       border: 1px solid #EAE5F4;
       border-radius: 12px;
       padding: 20px;
@@ -497,8 +513,8 @@
     }
     @media (max-width: 1100px) { .detail-grid { grid-template-columns: 1fr; } }
     .info-card {
-      background: var(--white); border: 1px solid var(--mist-lavender); border-radius: 12px;
-      padding: 18px 20px; box-shadow: 0 1px 3px var(--shadow-card); margin-bottom: 16px;
+      background: #EAE5F4; border: 1px solid var(--mist-lavender); border-radius: 12px;
+      padding: 18px 20px; box-shadow: none; margin-bottom: 16px;
     }
     .info-card h3 {
       margin: 0 0 14px; font-size: 12px; font-weight: 600; text-transform: uppercase;
@@ -512,8 +528,8 @@
 
     .timeline-card {
       position: sticky; top: 72px;
-      background: var(--white); border: 1px solid var(--mist-lavender); border-radius: 12px;
-      padding: 18px 20px; box-shadow: 0 1px 3px var(--shadow-card);
+      background: #EAE5F4; border: 1px solid var(--mist-lavender); border-radius: 12px;
+      padding: 18px 20px; box-shadow: none;
     }
     .timeline-card h3 {
       margin: 0 0 16px; font-size: 15px; font-weight: 600; color: var(--near-black);
@@ -628,61 +644,73 @@
       font-size: 12px;
     }
 
-    .actions-cell { white-space: nowrap; }
-
-    .action-icons {
-      display: flex;
-      align-items: center;
-      gap: 4px;
+    .actions-cell {
+      white-space: nowrap;
+      overflow: visible;
+      position: relative;
+    }
+    .plans-table tbody td.actions-cell {
+      overflow: visible;
     }
 
-    .icon-btn {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border: none;
-      background: transparent;
+    .action-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+    .three-dot-btn {
+      background: none;
+      border: 1px solid #EAE5F4;
       border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 18px;
       cursor: pointer;
       color: #4E465E;
-      transition: background 0.15s, color 0.15s;
-      padding: 4px;
-    }
-
-    .icon-btn:hover {
-      background: #F3F0FF;
-      color: #7A5CFF;
-    }
-
-    .icon-btn.danger {
-      color: #FF6B68;
-    }
-
-    .icon-btn.danger:hover {
-      background: #FFE8E7;
-      color: #FF6B68;
-    }
-
-    .icon-btn i {
-      width: 15px;
-      height: 15px;
-    }
-
-    .icon-label {
-      font-size: 9px;
-      font-family: Inter, sans-serif;
-      color: inherit;
-      margin-top: 1px;
       line-height: 1;
     }
-
-    .actions-cell .pending-bank-msg {
-      font-size: 12px;
-      color: #9CA3AF;
-      font-style: italic;
+    .three-dot-btn:hover {
+      background: #F8F7FB;
+    }
+    .three-dot-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .action-menu {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 4px);
+      background: white;
+      border: 1px solid #EAE5F4;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(18,12,36,0.10);
+      min-width: 200px;
+      z-index: 500;
+      overflow: hidden;
+    }
+    .action-item {
+      display: block;
+      width: 100%;
+      padding: 10px 16px;
+      text-align: left;
+      background: none;
+      border: none;
+      font-size: 13px;
+      font-family: Inter, sans-serif;
+      color: #120C24;
+      cursor: pointer;
+    }
+    .action-item:hover {
+      background: #F8F7FB;
+    }
+    .action-item.danger {
+      color: #FF6B68;
+    }
+    .action-item.danger:hover {
+      background: #FFE8E7;
+    }
+    .action-divider {
+      height: 1px;
+      background: #F0EEF6;
+      margin: 2px 0;
     }
     .toast-notification {
       position: fixed;
@@ -782,7 +810,7 @@
             <i data-lucide="layout-dashboard"></i>
             <span>Overview</span>
           </a>
-          <a href="#" class="nav-item">
+          <a href="#screen-pp002" class="nav-item">
             <i data-lucide="credit-card"></i>
             <span>Payment Plans</span>
           </a>
@@ -791,8 +819,16 @@
             <span>Mandates Management</span>
           </a>
           <a href="#" class="nav-item">
+            <i data-lucide="x-circle"></i>
+            <span>Rejections</span>
+          </a>
+          <a href="#" class="nav-item">
             <i data-lucide="banknote"></i>
             <span>Collections</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="alert-triangle"></i>
+            <span>Bounced</span>
           </a>
           <a href="#" class="nav-item">
             <i data-lucide="bar-chart-2"></i>
@@ -991,14 +1027,14 @@
                   <td>300.00</td>
                   <td>28/04/2026</td>
                   <td><span class="badge badge-draft">DRAFT</span></td>
-                                    <td class="actions-cell">
-                    <div class="action-icons">
-                      <button type="button" class="icon-btn" title="Complete" onclick="window.location.hash='screen-apr002'">
-                        <i data-lucide="pencil"></i>
-                      </button>
-                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
-                        <i data-lucide="trash-2"></i>
-                      </button>
+                  <td class="actions-cell">
+                    <div class="action-wrapper">
+                      <button type="button" class="three-dot-btn" onclick="toggleActionMenu(this, event)">⋯</button>
+                      <div class="action-menu" style="display:none;">
+                        <button type="button" class="action-item" onclick="window.location.hash='screen-apr002'">Complete</button>
+                        <div class="action-divider"></div>
+                        <button type="button" class="action-item danger" onclick="deleteRow(this)">Delete</button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -1009,11 +1045,12 @@
                   <td>150.00</td>
                   <td>29/04/2026</td>
                   <td><span class="badge badge-pending-sig">PENDING_SIGNATURE</span></td>
-                                    <td class="actions-cell">
-                    <div class="action-icons">
-                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
-                        <i data-lucide="trash-2"></i>
-                      </button>
+                  <td class="actions-cell">
+                    <div class="action-wrapper">
+                      <button type="button" class="three-dot-btn" onclick="toggleActionMenu(this, event)">⋯</button>
+                      <div class="action-menu" style="display:none;">
+                        <button type="button" class="action-item danger" onclick="deleteRow(this)">Delete</button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -1024,14 +1061,14 @@
                   <td>750.00</td>
                   <td>01/05/2026</td>
                   <td><span class="badge badge-pending-submission">PENDING_SUBMISSION</span></td>
-                                    <td class="actions-cell">
-                    <div class="action-icons">
-                      <button type="button" class="icon-btn" title="Submit to Bank" onclick="showToast('Mandate submitted to bank successfully.')">
-                        <i data-lucide="send"></i>
-                      </button>
-                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
-                        <i data-lucide="trash-2"></i>
-                      </button>
+                  <td class="actions-cell">
+                    <div class="action-wrapper">
+                      <button type="button" class="three-dot-btn" onclick="toggleActionMenu(this, event)">⋯</button>
+                      <div class="action-menu" style="display:none;">
+                        <button type="button" class="action-item" onclick="showToast('Mandate submitted to bank successfully.')">Submit to Bank</button>
+                        <div class="action-divider"></div>
+                        <button type="button" class="action-item danger" onclick="deleteRow(this)">Delete</button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -1042,11 +1079,12 @@
                   <td>1200.00</td>
                   <td>30/04/2026</td>
                   <td><span class="badge badge-cancel-pending">CANCEL_PENDING</span></td>
-                                    <td class="actions-cell">
-                    <div class="action-icons">
-                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
-                        <i data-lucide="trash-2"></i>
-                      </button>
+                  <td class="actions-cell">
+                    <div class="action-wrapper">
+                      <button type="button" class="three-dot-btn" onclick="toggleActionMenu(this, event)">⋯</button>
+                      <div class="action-menu" style="display:none;">
+                        <button type="button" class="action-item danger" onclick="deleteRow(this)">Delete</button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -1057,11 +1095,12 @@
                   <td>3000.00</td>
                   <td>25/04/2026</td>
                   <td><span class="badge badge-cancelled">CANCELLED</span></td>
-                                    <td class="actions-cell">
-                    <div class="action-icons">
-                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
-                        <i data-lucide="trash-2"></i>
-                      </button>
+                  <td class="actions-cell">
+                    <div class="action-wrapper">
+                      <button type="button" class="three-dot-btn" onclick="toggleActionMenu(this, event)">⋯</button>
+                      <div class="action-menu" style="display:none;">
+                        <button type="button" class="action-item danger" onclick="deleteRow(this)">Delete</button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -1072,14 +1111,14 @@
                   <td>500.00</td>
                   <td>18/04/2026</td>
                   <td><span class="badge badge-approved">APPROVED</span></td>
-                                    <td class="actions-cell">
-                    <div class="action-icons">
-                      <button type="button" class="icon-btn" title="Cancel" onclick="showConfirmDialog('Are you sure you want to cancel this mandate? This action cannot be undone.', () => showToast('Mandate cancelled.'))">
-                        <i data-lucide="ban"></i>
-                      </button>
-                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
-                        <i data-lucide="trash-2"></i>
-                      </button>
+                  <td class="actions-cell">
+                    <div class="action-wrapper">
+                      <button type="button" class="three-dot-btn" onclick="toggleActionMenu(this, event)">⋯</button>
+                      <div class="action-menu" style="display:none;">
+                        <button type="button" class="action-item danger" onclick="showConfirmDialog('Are you sure you want to cancel this mandate?', () => showToast('Cancellation request submitted.'))">Cancel</button>
+                        <div class="action-divider"></div>
+                        <button type="button" class="action-item danger" onclick="deleteRow(this)">Delete</button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -1090,14 +1129,14 @@
                   <td>120.00</td>
                   <td>19/04/2026</td>
                   <td><span class="badge badge-approved">APPROVED</span></td>
-                                    <td class="actions-cell">
-                    <div class="action-icons">
-                      <button type="button" class="icon-btn" title="Cancel" onclick="showConfirmDialog('Are you sure you want to cancel this mandate? This action cannot be undone.', () => showToast('Mandate cancelled.'))">
-                        <i data-lucide="ban"></i>
-                      </button>
-                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
-                        <i data-lucide="trash-2"></i>
-                      </button>
+                  <td class="actions-cell">
+                    <div class="action-wrapper">
+                      <button type="button" class="three-dot-btn" onclick="toggleActionMenu(this, event)">⋯</button>
+                      <div class="action-menu" style="display:none;">
+                        <button type="button" class="action-item danger" onclick="showConfirmDialog('Are you sure you want to cancel this mandate?', () => showToast('Cancellation request submitted.'))">Cancel</button>
+                        <div class="action-divider"></div>
+                        <button type="button" class="action-item danger" onclick="deleteRow(this)">Delete</button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -1108,20 +1147,15 @@
                   <td>900.00</td>
                   <td>17/04/2026</td>
                   <td><span class="badge badge-rejected">REJECTED</span></td>
-                                    <td class="actions-cell">
-                    <div class="action-icons">
-                      <button type="button" class="icon-btn" title="Reset Reminder Count" onclick="showToast('Reminder count has been reset successfully.')">
-                        <i data-lucide="refresh-cw"></i>
-                        <span class="icon-label">Reset</span>
-                      </button>
-                      <button type="button" class="icon-btn" title="Resubmit to Bank" onclick="showToast('Mandate has been resubmitted to the bank.')">
-                        <i data-lucide="send"></i>
-                        <span class="icon-label">Resubmit</span>
-                      </button>
-                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
-                        <i data-lucide="trash-2"></i>
-                        <span class="icon-label">Delete</span>
-                      </button>
+                  <td class="actions-cell">
+                    <div class="action-wrapper">
+                      <button type="button" class="three-dot-btn" onclick="toggleActionMenu(this, event)">⋯</button>
+                      <div class="action-menu" style="display:none;">
+                        <button type="button" class="action-item" onclick="showToast('Reminder count has been reset successfully.')">Reset Reminder Count</button>
+                        <button type="button" class="action-item" onclick="showToast('Mandate has been resubmitted to the bank.')">Resubmit</button>
+                        <div class="action-divider"></div>
+                        <button type="button" class="action-item danger" onclick="deleteRow(this)">Delete</button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -1132,8 +1166,10 @@
                   <td>Variable</td>
                   <td>20/04/2026</td>
                   <td><span class="badge badge-pending-bank">PENDING_BANK_APPROVAL</span></td>
-                                    <td class="actions-cell">
-                    <span class="pending-bank-msg">—</span>
+                  <td class="actions-cell">
+                    <div class="action-wrapper">
+                      <button type="button" class="three-dot-btn" disabled>⋯</button>
+                    </div>
                   </td>
                 </tr>
                 <tr data-search="mnd-2026-00841 omar al bloushi" data-status="approved">
@@ -1143,14 +1179,14 @@
                   <td>4500.00</td>
                   <td>16/04/2026</td>
                   <td><span class="badge badge-approved">APPROVED</span></td>
-                                    <td class="actions-cell">
-                    <div class="action-icons">
-                      <button type="button" class="icon-btn" title="Cancel" onclick="showConfirmDialog('Are you sure you want to cancel this mandate? This action cannot be undone.', () => showToast('Mandate cancelled.'))">
-                        <i data-lucide="ban"></i>
-                      </button>
-                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
-                        <i data-lucide="trash-2"></i>
-                      </button>
+                  <td class="actions-cell">
+                    <div class="action-wrapper">
+                      <button type="button" class="three-dot-btn" onclick="toggleActionMenu(this, event)">⋯</button>
+                      <div class="action-menu" style="display:none;">
+                        <button type="button" class="action-item danger" onclick="showConfirmDialog('Are you sure you want to cancel this mandate?', () => showToast('Cancellation request submitted.'))">Cancel</button>
+                        <div class="action-divider"></div>
+                        <button type="button" class="action-item danger" onclick="deleteRow(this)">Delete</button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -1161,8 +1197,10 @@
                   <td>80.00</td>
                   <td>22/04/2026</td>
                   <td><span class="badge badge-pending-bank">PENDING_BANK_APPROVAL</span></td>
-                                    <td class="actions-cell">
-                    <span class="pending-bank-msg">—</span>
+                  <td class="actions-cell">
+                    <div class="action-wrapper">
+                      <button type="button" class="three-dot-btn" disabled>⋯</button>
+                    </div>
                   </td>
                 </tr>
                 <tr data-search="mnd-2026-00846 mohammed al rashidi" data-status="rejected">
@@ -1172,20 +1210,15 @@
                   <td>2000.00</td>
                   <td>15/04/2026</td>
                   <td><span class="badge badge-rejected">REJECTED</span></td>
-                                    <td class="actions-cell">
-                    <div class="action-icons">
-                      <button type="button" class="icon-btn" title="Reset Reminder Count" onclick="showToast('Reminder count has been reset successfully.')">
-                        <i data-lucide="refresh-cw"></i>
-                        <span class="icon-label">Reset</span>
-                      </button>
-                      <button type="button" class="icon-btn" title="Resubmit to Bank" onclick="showToast('Mandate has been resubmitted to the bank.')">
-                        <i data-lucide="send"></i>
-                        <span class="icon-label">Resubmit</span>
-                      </button>
-                      <button type="button" class="icon-btn danger" title="Delete" onclick="deleteRow(this)">
-                        <i data-lucide="trash-2"></i>
-                        <span class="icon-label">Delete</span>
-                      </button>
+                  <td class="actions-cell">
+                    <div class="action-wrapper">
+                      <button type="button" class="three-dot-btn" onclick="toggleActionMenu(this, event)">⋯</button>
+                      <div class="action-menu" style="display:none;">
+                        <button type="button" class="action-item" onclick="showToast('Reminder count has been reset successfully.')">Reset Reminder Count</button>
+                        <button type="button" class="action-item" onclick="showToast('Mandate has been resubmitted to the bank.')">Resubmit</button>
+                        <div class="action-divider"></div>
+                        <button type="button" class="action-item danger" onclick="deleteRow(this)">Delete</button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -1232,7 +1265,7 @@
             <i data-lucide="layout-dashboard"></i>
             <span>Overview</span>
           </a>
-          <a href="#" class="nav-item">
+          <a href="#screen-pp002" class="nav-item">
             <i data-lucide="credit-card"></i>
             <span>Payment Plans</span>
           </a>
@@ -1241,8 +1274,16 @@
             <span>Mandates Management</span>
           </a>
           <a href="#" class="nav-item">
+            <i data-lucide="x-circle"></i>
+            <span>Rejections</span>
+          </a>
+          <a href="#" class="nav-item">
             <i data-lucide="banknote"></i>
             <span>Collections</span>
+          </a>
+          <a href="#" class="nav-item">
+            <i data-lucide="alert-triangle"></i>
+            <span>Bounced</span>
           </a>
           <a href="#" class="nav-item">
             <i data-lucide="bar-chart-2"></i>
@@ -1449,6 +1490,59 @@
 </article>
 <script>
 let currentSort = { col: null, type: null, dir: null };
+let activeMenu = null;
+let activeMenuButton = null;
+
+function closeActionMenu() {
+  if (!activeMenu) return;
+  activeMenu.style.display = 'none';
+  activeMenu.style.position = '';
+  activeMenu.style.left = '';
+  activeMenu.style.top = '';
+  activeMenu.style.right = '';
+  activeMenu = null;
+  activeMenuButton = null;
+}
+
+function positionActionMenu(btn, menu) {
+  menu.style.position = 'fixed';
+  menu.style.right = 'auto';
+  menu.style.bottom = 'auto';
+  menu.style.display = 'block';
+  const rect = btn.getBoundingClientRect();
+  const menuWidth = menu.offsetWidth || 200;
+  const menuHeight = menu.offsetHeight || 0;
+  const left = Math.max(8, Math.min(rect.right - menuWidth, window.innerWidth - menuWidth - 8));
+  const top = Math.min(rect.bottom + 4, window.innerHeight - menuHeight - 8);
+  menu.style.left = left + 'px';
+  menu.style.top = top + 'px';
+}
+
+function toggleActionMenu(btn, event) {
+  event.stopPropagation();
+  const menu = btn.nextElementSibling;
+  if (!menu || !menu.classList.contains('action-menu')) return;
+
+  if (activeMenu && activeMenu !== menu) {
+    closeActionMenu();
+  }
+
+  const isOpen = activeMenu === menu;
+  if (isOpen) {
+    closeActionMenu();
+    return;
+  }
+
+  positionActionMenu(btn, menu);
+  activeMenu = menu;
+  activeMenuButton = btn;
+}
+
+document.addEventListener('click', function(e) {
+  if (!activeMenu) return;
+  if (e.target.closest('.action-wrapper')) return;
+  closeActionMenu();
+});
 
 function toggleSortDropdown(btn, event) {
   event.stopPropagation();
